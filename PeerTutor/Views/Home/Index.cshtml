@@ -1,0 +1,13 @@
+﻿@model PeerTutor.ViewModels.HomeViewModel
+
+<h2>@Model.Title</h2>
+
+@foreach (var course in Model.Courses)
+    {
+
+
+<div>
+    <h2>@course.CourseNumber</h2>
+    <h3>@course.CourseTitle</h3>
+</div>
+    }

@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs
+/PeerTutor/.vs/PeerTutor/v16
+/PeerTutor/bin/Debug/netcoreapp2.2
+/PeerTutor/.vs/PeerTutor/config

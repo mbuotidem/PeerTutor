@@ -102,6 +102,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Login</a>
                                 </li>
+                                <partial name="_LoginPartial" />
                             </ul>
                         </div>
                     </div>
@@ -112,6 +113,7 @@
                     @RenderBody()
                 </div>
             </div>
+            @RenderSection("Scripts", required: false)
         </div>
 
 

@@ -1,13 +1,109 @@
-﻿@model PeerTutor.ViewModels.HomeViewModel
+﻿@model HomeViewModel
 
-<h2>@Model.Title</h2>
+@{
+    Layout = "_HomeLayout";
 
-@foreach (var course in Model.Courses)
-    {
+}
 
 
-<div>
-    <h2>@course.CourseNumber</h2>
-    <h3>@course.CourseTitle</h3>
+
+
+<div class="container-fluid">
+    <div class='jumbotron' style="background-size: cover;
+ background-repeat: no-repeat; padding-top: 18%;
+      padding-bottom: 18%;  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/homepage.jpg');background-size: cover; ">
+        <div style='color: white'>
+            <h1 style="text-align: center">Welcome to Peer Tutor!</h1>
+            <p style="text-align: center; color:white">Get tutored by fellow students with first-hand experience and good grades in the courses you're taking. </p>
+        </div>
+        <div class="text-center">
+            <p class="lead">
+                <a class="btn btn-basic purple-background white btn-lg " href="/signup" role="button">Sign Up</a>
+            </p>
+        </div>
+
+    </div>
 </div>
-    }
+
+<section id="home-reviews">
+    <div class="col-sm-10 ml-auto mr-auto text-center">
+        <h2 class="">Read what some of our customers are saying</h2>
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <p class="review-body">
+                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                        Jennifer helped me understand the fundamentals of conditional statements. I'm really glad I signed up for PeerTutor! <i class="fa fa-quote-right" aria-hidden="true"></i>
+                    </p>
+                    <p class="review-name">Mfonido Goodson - Economics Major</p>
+                    <div class="stars">
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <p class="review-body">
+                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                        Isaac explained difficult concepts in an easy to understand manner. Without him, IT 210 would have been way harder. <i class="fa fa-quote-right" aria-hidden="true"></i>
+                    </p>
+                    <p class="review-name">Jeremy - MIS Major</p>
+                    <div class="stars">
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <p class="review-body">
+                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                        Best $10 I ever spent! The tutor's here really know their stuff! <i class="fa fa-quote-right" aria-hidden="true"></i>
+                    </p>
+                    <p class="review-name">Matthew - Business Major</p>
+                    <div class="stars">
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                    </div>
+
+                </div>
+                <div class="carousel-item">
+                    <p class="review-body">
+                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                        You guys are the best - A+.<i class="fa fa-quote-right" aria-hidden="true"></i>
+                    </p>
+                    <p class="review-name">Ted - CIT Major.</p>
+                    <div class="stars">
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star-o fa-lg" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <p class="review-body">
+                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                        very professional and courteous.<i class="fa fa-quote-right" aria-hidden="true"></i>
+                    </p>
+                    <p class="review-name">Jane - Infosec Major</p>
+                    <div class="stars">
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br>
+

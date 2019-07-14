@@ -26,7 +26,6 @@ C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\
 C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\Views\Home\Privacy.g.cshtml.cs
 C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\Views\_ViewImports.g.cshtml.cs
 C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_HeaderNavBar.g.cshtml.cs
-C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\PeerTutor.csprojAssemblyReference.cache
 C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\Areas\Identity\Pages\Account\Login.g.cshtml.cs
 C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\Areas\Identity\Pages\Account\Logout.g.cshtml.cs
 C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\Areas\Identity\Pages\Account\Register.g.cshtml.cs
@@ -42,3 +41,4 @@ C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\
 C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\Views\Courses\Edit.g.cshtml.cs
 C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\Views\Courses\Index.g.cshtml.cs
 C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
+C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\PeerTutor.csprojAssemblyReference.cache

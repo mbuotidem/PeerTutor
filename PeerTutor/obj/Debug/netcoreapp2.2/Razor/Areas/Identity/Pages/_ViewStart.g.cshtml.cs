@@ -13,18 +13,18 @@ namespace PeerTutor.Areas.Identity.Pages
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
+#line 1 "C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\Areas\Identity\Pages\_ViewImports.cshtml"
+using Microsoft.AspNetCore.Identity;
+
+#line default
+#line hidden
 #line 2 "C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\Areas\Identity\Pages\_ViewImports.cshtml"
 using PeerTutor.Areas.Identity;
 
 #line default
 #line hidden
-#line 3 "C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\Areas\Identity\Pages\_ViewImports.cshtml"
-using Microsoft.AspNetCore.Identity;
-
-#line default
-#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"32aeecaecd37e4f295e8648b415cc23368dcec4b", @"/Areas/Identity/Pages/_ViewStart.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6bea13cbd4d362b1497eb55390e591a79227d4c3", @"/Areas/Identity/Pages/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d2b1ad08d20f9e08337756efb20d73c869399629", @"/Areas/Identity/Pages/_ViewImports.cshtml")]
     public class Areas_Identity_Pages__ViewStart : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

@@ -24,6 +24,8 @@ namespace PeerTutor
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+
+            // Add AppplicationDbContext to DI
             services.AddDbContext<AppDbContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -38,6 +40,8 @@ namespace PeerTutor
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
+
+            // Setup Identity
             app.UseAuthentication();
             app.UseMvc(routes =>
             {

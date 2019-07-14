@@ -12,8 +12,11 @@
 <body>
     <partial name="_HeaderNavBar.cshtml" />
 
-    <div>
-        @RenderBody()
+    <div class="container-fluid">
+        <div class="container-fluid">
+
+            @RenderBody()
+        </div>
     </div>
     @RenderSection("Scripts", required: false)
 

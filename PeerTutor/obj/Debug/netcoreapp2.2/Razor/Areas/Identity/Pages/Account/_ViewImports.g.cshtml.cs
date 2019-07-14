@@ -13,13 +13,13 @@ namespace PeerTutor.Areas.Identity.Pages.Account
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
-#line 2 "C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\Areas\Identity\Pages\_ViewImports.cshtml"
-using PeerTutor.Areas.Identity;
+#line 1 "C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\Areas\Identity\Pages\_ViewImports.cshtml"
+using Microsoft.AspNetCore.Identity;
 
 #line default
 #line hidden
-#line 3 "C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\Areas\Identity\Pages\_ViewImports.cshtml"
-using Microsoft.AspNetCore.Identity;
+#line 2 "C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\Areas\Identity\Pages\_ViewImports.cshtml"
+using PeerTutor.Areas.Identity;
 
 #line default
 #line hidden
@@ -29,7 +29,7 @@ using PeerTutor.Areas.Identity.Pages.Account;
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"026f9381177628f8cd96c9bd3e74a874870ea2c9", @"/Areas/Identity/Pages/Account/_ViewImports.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6bea13cbd4d362b1497eb55390e591a79227d4c3", @"/Areas/Identity/Pages/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d2b1ad08d20f9e08337756efb20d73c869399629", @"/Areas/Identity/Pages/_ViewImports.cshtml")]
     public class Areas_Identity_Pages_Account__ViewImports : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

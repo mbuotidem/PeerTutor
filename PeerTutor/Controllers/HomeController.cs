@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PeerTutor.Models;
@@ -11,6 +12,7 @@ using PeerTutor.ViewModels;
 
 namespace PeerTutor.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly ICourseRepository _courseRepository;

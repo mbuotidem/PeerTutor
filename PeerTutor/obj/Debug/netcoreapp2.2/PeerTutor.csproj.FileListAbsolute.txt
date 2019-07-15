@@ -42,3 +42,8 @@ C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\
 C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\Views\Courses\Index.g.cshtml.cs
 C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs
 C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\PeerTutor.csprojAssemblyReference.cache
+C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\Views\Administration\CreateRole.g.cshtml.cs
+C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\Views\Administration\ListRoles.g.cshtml.cs
+C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\Views\Administration\EditRole.g.cshtml.cs
+C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Error.g.cshtml.cs
+C:\Users\MBIS001\Source\Repos\PeerTutor\PeerTutor\obj\Debug\netcoreapp2.2\Razor\Views\Shared\NotFound.g.cshtml.cs

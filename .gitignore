@@ -6,3 +6,16 @@
 /PeerTutor/.vs/PeerTutor/v16
 /PeerTutor/bin/Debug/netcoreapp2.2
 /PeerTutor/.vs/PeerTutor/config
+/PeerTutor/bin/Release/netcoreapp2.2
+/PeerTutor.Tests/obj/Release/netcoreapp2.2
+
+/PeerTutor/.vs
+/PeerTutor.Tests/obj
+
+bin
+obj
+packages
+.vs
+
+
+

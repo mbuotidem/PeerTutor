@@ -12,10 +12,15 @@
 /PeerTutor/.vs
 /PeerTutor.Tests/obj
 
+/PeerTutor.Tests/bin
+
 bin
 obj
 packages
 .vs
 
-
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
 

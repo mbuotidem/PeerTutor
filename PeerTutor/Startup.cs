@@ -38,6 +38,12 @@ namespace PeerTutor
             {
 
             })
+            .AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = Configuration["GoogleAppId"];
+                googleOptions.ClientSecret = Configuration["GoogleSecret"];
+
+            })
             .AddTwitter(twitterOptions =>
             {
                 twitterOptions.ConsumerKey = Configuration["TwitterAppId"];

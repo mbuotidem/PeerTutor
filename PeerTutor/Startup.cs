@@ -28,7 +28,7 @@ namespace PeerTutor
         {
 
             // Add AppplicationDbContext to DI
-            services.AddDbContext<AppDbContext>(options => 
+            services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<ICourseRepository, CourseRepository>();
@@ -37,6 +37,11 @@ namespace PeerTutor
             services.AddAuthentication(options =>
             {
 
+            })
+            .AddTwitter(twitterOptions =>
+            {
+                twitterOptions.ConsumerKey = Configuration["TwitterAppId"];
+                twitterOptions.ConsumerSecret = Configuration["TwitterSecret"];
             })
             .AddFacebook(facebookOptions =>
             {

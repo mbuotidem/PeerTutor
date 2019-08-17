@@ -13,7 +13,6 @@
     <WebStackScaffolding_DbContextTypeFullName>PeerTutor.Models.AppDbContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_IsViewGenerationSelected>True</WebStackScaffolding_IsViewGenerationSelected>
-    <WebStackScaffolding_LayoutPageFile />
     <NameOfLastUsedPublishProfile>PeerTutor - Web Deploy</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

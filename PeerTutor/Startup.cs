@@ -32,7 +32,18 @@ namespace PeerTutor
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<ICourseRepository, CourseRepository>();
+            // Add third-party authentication
 
+            services.AddAuthentication(options =>
+            {
+
+            })
+            .AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = Configuration["FacebookAppId"];
+                facebookOptions.AppSecret = Configuration["FacebookSecret"];
+            });
+            
             services.AddMvc(options =>
             {
                 AuthorizationPolicy policy = new AuthorizationPolicyBuilder()

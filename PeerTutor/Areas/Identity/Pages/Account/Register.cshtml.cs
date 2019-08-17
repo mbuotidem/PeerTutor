@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -24,24 +25,31 @@ namespace PeerTutor.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly IHtmlHelper htmlHelper;
+        private readonly IAuthenticationSchemeProvider authenticationSchemeProvider;
 
         public IEnumerable<SelectListItem> MajorTypes { get; set; }
         public IEnumerable<SelectListItem> ClassYears { get; set; }
+
+        public IEnumerable<string> allSchemeProvider { get; set; }
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender,IHtmlHelper htmlHelper)
+            IEmailSender emailSender,IHtmlHelper htmlHelper,
+            IAuthenticationSchemeProvider authenticationSchemeProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             this.htmlHelper = htmlHelper;
+            this.authenticationSchemeProvider = authenticationSchemeProvider;
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
+
+        public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
         public string ReturnUrl { get; set; }
 
@@ -65,7 +73,7 @@ namespace PeerTutor.Areas.Identity.Pages.Account
 
 
             [Required]
-            [Display(Name = "Fist Name")]
+            [Display(Name = "First Name")]
             public string FirstName { get; set; }
             [Required]
             [Display(Name = "Last Name")]
@@ -80,8 +88,11 @@ namespace PeerTutor.Areas.Identity.Pages.Account
 
         }
 
-        public void OnGet(string returnUrl = null)
+        public async Task OnGet(string returnUrl = null)
         {
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+
             MajorTypes = htmlHelper.GetEnumSelectList<MajorType>();
             //ClassYears = htmlHelper.GetEnumSelectList<ClassYears>();
 

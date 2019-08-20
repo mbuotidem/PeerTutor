@@ -57,7 +57,20 @@ namespace PeerTutor
                         keyVaultClient,
                         new DefaultKeyVaultSecretManager());
                 }
+
+                var keyVaultEndpoint = GetKeyVaultEndpoint();
+                if (!string.IsNullOrEmpty(keyVaultEndpoint))
+                {
+                    var azureServiceTokenProvider = new AzureServiceTokenProvider();
+                    var keyVaultClient = new KeyVaultClient(
+                        new KeyVaultClient.AuthenticationCallback(
+                            azureServiceTokenProvider.KeyVaultTokenCallback));
+                    config.AddAzureKeyVault(
+                    keyVaultEndpoint, keyVaultClient, new DefaultKeyVaultSecretManager());
+                }
             })
                 .UseStartup<Startup>();
+        private static string GetKeyVaultEndpoint() => Environment.GetEnvironmentVariable("KEYVAULT_ENDPOINT");
+
     }
 }

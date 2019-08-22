@@ -43,8 +43,7 @@ namespace PeerTutor
             WebHost.CreateDefaultBuilder(args)
             .ConfigureAppConfiguration((context, config) =>
             {
-                if (context.HostingEnvironment.IsProduction())
-                {
+                
                     var builtConfig = config.Build();
 
                     var azureServiceTokenProvider = new AzureServiceTokenProvider();
@@ -56,21 +55,8 @@ namespace PeerTutor
                         $"https://{builtConfig["KeyVaultName"]}.vault.azure.net/",
                         keyVaultClient,
                         new DefaultKeyVaultSecretManager());
-                }
-
-                var keyVaultEndpoint = GetKeyVaultEndpoint();
-                if (!string.IsNullOrEmpty(keyVaultEndpoint))
-                {
-                    var azureServiceTokenProvider = new AzureServiceTokenProvider();
-                    var keyVaultClient = new KeyVaultClient(
-                        new KeyVaultClient.AuthenticationCallback(
-                            azureServiceTokenProvider.KeyVaultTokenCallback));
-                    config.AddAzureKeyVault(
-                    keyVaultEndpoint, keyVaultClient, new DefaultKeyVaultSecretManager());
-                }
+                
             })
                 .UseStartup<Startup>();
-        private static string GetKeyVaultEndpoint() => Environment.GetEnvironmentVariable("KEYVAULT_ENDPOINT");
-
     }
 }

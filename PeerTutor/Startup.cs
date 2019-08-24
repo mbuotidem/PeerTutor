@@ -74,9 +74,9 @@ namespace PeerTutor
             else
             {
                 app.UseExceptionHandler("/Error");
-                app.UseStatusCodePagesWithReExecute("/Error/{0");
+                
             }
-            app.UseDeveloperExceptionPage();
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
             app.UseStaticFiles();
 
             // Setup Identity

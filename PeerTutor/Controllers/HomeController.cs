@@ -67,12 +67,23 @@ namespace PeerTutor.Controllers
         public IActionResult Index()
         {
 
+           if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Menu");
+            }
+
+            return View();
+        }
+
+        public IActionResult Menu()
+        {
+
             var courses = _courseRepository.GetCourses().OrderBy(c => c.CourseNumber);
 
             var homeViewModel = new HomeViewModel()
             {
-                Title = "Courses",
-                Courses = courses.ToList()
+                Title = "Course Menu",
+                Courses = courses
             };
 
             return View(homeViewModel);

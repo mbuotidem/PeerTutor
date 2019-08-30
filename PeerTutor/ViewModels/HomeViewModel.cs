@@ -9,6 +9,6 @@ namespace PeerTutor.ViewModels
     public class HomeViewModel
     {
         public string Title { get; set; }
-        public List<Course> Courses { get; set; }
+        public IEnumerable<Course> Courses { get; set; }
     }
 }

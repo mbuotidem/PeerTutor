@@ -4,6 +4,12 @@
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
+.card-deck {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: .5rem;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
@@ -40,6 +46,11 @@ a:focus {
     border: none;
 }
 
+.dropdown-toggle::after {
+    display: inline-block !important; 
+    right: initial !important;
+    
+}
 .line {
     width: 100%;
     height: 1px;
@@ -47,10 +58,38 @@ a:focus {
     margin: 40px 0;
 }
 
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+#myInput {
+    background-image: url('../images/searchicon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+}
+
+
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
-
 .wrapper {
     display: flex;
     width: 100%;

@@ -1,0 +1,105 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+
+
+@model IEnumerable<ApplicationUser>
+
+
+@{
+    ViewBag.Title = "All Users";
+
+}
+
+
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-info">@TempData["Message"]</div>
+}
+
+
+
+<div class="row">
+    <div class="col-lg-12 text-center">
+        <h2 class="mt-5">All Users</h2>
+    </div>
+</div>
+
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for users by first name. . ."
+       title="Type in a company name">
+
+<table id="myTable">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>User Name/Email</th>
+            <th>Class Year</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model.Any())
+
+        {
+            //<a class="btn btn-primary mb-3" style="width:auto" asp-action="CreateRole" asp-controller="administration">Add new role</a>
+
+            foreach (var user in Model)
+            {
+
+                <tr>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.UserName</td>
+                    <td>@user.ClassYear</td>
+                </tr>
+
+            }
+
+
+
+
+
+
+        }
+
+    </tbody>
+</table>
+
+
+
+
+@if (!Model.Any())
+{
+    <div class="card">
+        <div class="card-header">
+            No users created yet
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    <script>
+        function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+    </script>
+}
+

@@ -10,7 +10,7 @@ using PeerTutor.ViewModels;
 
 namespace PeerTutor.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;

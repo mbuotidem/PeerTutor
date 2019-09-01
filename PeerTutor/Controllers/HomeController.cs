@@ -12,7 +12,7 @@ using PeerTutor.ViewModels;
 
 namespace PeerTutor.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ICourseRepository _courseRepository;
@@ -23,47 +23,9 @@ namespace PeerTutor.Controllers
             
         }
 
-        //#region Protected Members
-        ///// <summary>
-        ///// The scooped Application context
-        ///// </summary>
 
-        //protected AppDbContext mContext;
-
-        ///// <summary>
-        ///// The manager for handling user creation, deletion, searching, roles etc..
-        ///// </summary>
-
-        //protected UserManager<ApplicationUser> mUserManager;
-
-        ///// <summary>
-        ///// The manager for handling signing in and out for our users
-        ///// </summary>
-
-        //protected SignInManager<ApplicationUser> mSignInManager;
-        //#endregion
-
-        //#region Constructor
-
-        ///// <summary>
-        ///// Default constructor
-        ///// </summary>
-        ///// <param name="context">The injected context</param>
-
-        //public HomeController(ICourseRepository courseRepository, 
-        //    AppDbContext context, 
-        //    UserManager<ApplicationUser> userManager, 
-        //    SignInManager<ApplicationUser> signInManager)
-        //{
-        //    _courseRepository = courseRepository;
-        //    mContext = context;
-        //    mUserManager = userManager;
-        //    mSignInManager = signInManager;
-
-        //}
-
-        //#endregion
         // GET: /<controller>/
+        [AllowAnonymous]
         public IActionResult Index()
         {
 
@@ -75,6 +37,7 @@ namespace PeerTutor.Controllers
             return View();
         }
 
+        
         public IActionResult Menu()
         {
 
@@ -89,16 +52,18 @@ namespace PeerTutor.Controllers
             return View(homeViewModel);
         }
 
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();
         }
 
-        //[Route("create")]
-        //public async Task<IActionResult> CreateUserAsync()
-        //{
-        //    await Task.Delay(0);
-        //    return Content("User was created", "text/html");
-        //}
+        [AllowAnonymous]
+        public IActionResult Faq()
+        {
+            return View();
+        }
+
+
     }
 }

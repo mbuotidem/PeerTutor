@@ -24,11 +24,6 @@ namespace PeerTutor.Models
 
         }
 
-        //public IEnumerable<SelectListItem> ClassYears = Enumerable.Range(DateTime.Now.Year, 10).Select(x => new SelectListItem()
-        //{
-        //    Text = x.ToString()
-        //});
-
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

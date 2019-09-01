@@ -94,9 +94,7 @@ namespace PeerTutor.Areas.Identity.Pages.Account
 
 
             MajorTypes = htmlHelper.GetEnumSelectList<MajorType>();
-            //ClassYears = htmlHelper.GetEnumSelectList<ClassYears>();
-
-        
+                    
             
             ClassYears = Enumerable.Range(DateTime.Now.Year, 10).Select(x => new SelectListItem()
             {

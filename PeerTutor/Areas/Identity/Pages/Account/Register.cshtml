@@ -3,10 +3,13 @@
 
 @{
     ViewData["Title"] = "Register";
-    
+
 }
 
-<h1>@ViewData["Title"]</h1>
+@if (!String.IsNullOrEmpty(Request.Query["FailureMessage"]))
+{
+    <p class="alert alert-danger">Something went wrong with your request. Please register an account or try again.</p>
+}
 
 <div class="row">
     <div class="col-md-4">

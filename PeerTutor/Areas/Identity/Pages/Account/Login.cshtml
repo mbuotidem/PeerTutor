@@ -4,14 +4,18 @@
 @{
     ViewData["Title"] = "Log in";
 }
-    
-        <h1>@ViewData["Title"]</h1>
+
+@if( !String.IsNullOrEmpty(Request.Query["FailureMessage"]))
+{
+    <p class="alert alert-danger">Something went wrong trying to log you in, please try again.</p>
+}
+
 
         <div class="row">
             <div class="col-md-4">
                 <section>
                     <form id="account" method="post">
-                        <h4>Use a local account to log in.</h4>
+                        <h4>Log in with email and password.</h4>
                         <hr />
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="form-group">

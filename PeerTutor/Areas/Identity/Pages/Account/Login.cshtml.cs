@@ -35,6 +35,8 @@ namespace PeerTutor.Areas.Identity.Pages.Account
         [TempData]
         public string ErrorMessage { get; set; }
 
+        public const string ExtLoginError = nameof(ExtLoginError);
+
         public class InputModel
         {
             [Required]

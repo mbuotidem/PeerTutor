@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -42,17 +43,38 @@ namespace PeerTutor
             {
                 googleOptions.ClientId = Configuration["GoogleAppId"];
                 googleOptions.ClientSecret = Configuration["GoogleSecret"];
+                googleOptions.Events.OnRemoteFailure = (context) =>
+                {
+                    //context.Response.Redirect("/Identity/Account/Register");
+                    context.Response.Redirect("/Identity/Account/Register?FailureMessage=" + UrlEncoder.Default.Encode(context.Failure.Message));
+                    context.HandleResponse();
+                    return System.Threading.Tasks.Task.CompletedTask;
+                };
 
             })
             .AddTwitter(twitterOptions =>
             {
                 twitterOptions.ConsumerKey = Configuration["TwitterAppId"];
                 twitterOptions.ConsumerSecret = Configuration["TwitterSecret"];
+                twitterOptions.Events.OnRemoteFailure = (context) =>
+                {
+                    //context.Response.Redirect("/Identity/Account/Register");
+                    context.Response.Redirect("/Identity/Account/Register?FailureMessage=" + UrlEncoder.Default.Encode(context.Failure.Message));
+                    context.HandleResponse();
+                    return System.Threading.Tasks.Task.CompletedTask;
+                };
             })
             .AddFacebook(facebookOptions =>
             {
                 facebookOptions.AppId = Configuration["FacebookAppId"];
                 facebookOptions.AppSecret = Configuration["FacebookSecret"];
+                facebookOptions.Events.OnRemoteFailure = (context) =>
+                {
+                    //context.Response.Redirect("/Identity/Account/Register");
+                    context.Response.Redirect("/Identity/Account/Register?FailureMessage=" + UrlEncoder.Default.Encode(context.Failure.Message));
+                    context.HandleResponse();
+                    return System.Threading.Tasks.Task.CompletedTask;
+                };
             });
             
             services.AddMvc(options =>

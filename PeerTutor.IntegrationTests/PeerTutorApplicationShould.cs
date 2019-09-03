@@ -29,21 +29,29 @@ namespace PeerTutor.IntegrationTests
         [Fact]
         public async Task RenderHomePage()
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>()
-                .UseInMemoryDatabase(databaseName: "TestDB")
-                .Options;
+            //var options = new DbContextOptionsBuilder<AppDbContext>()
+            //    .UseInMemoryDatabase(databaseName: "TestDB")
+            //    .Options;
 
-            using (var context = new AppDbContext(options))
-            {
-                var response = await _fixture.Client.GetAsync("/Home");
+            //using (var context = new AppDbContext(options))
+            //{
+            //    var response = await _fixture.Client.GetAsync("/Home");
 
-                response.EnsureSuccessStatusCode();
+            //    response.EnsureSuccessStatusCode();
 
-                var responseString = await response.Content.ReadAsStringAsync();
+            //    var responseString = await response.Content.ReadAsStringAsync();
 
-                Assert.Contains("Welcome to Peer Tutor!", responseString);
-            }
-            
+            //    Assert.Contains("Welcome to Peer Tutor!", responseString);
+            //}
+
+            var response = await _fixture.Client.GetAsync("/Home");
+
+            response.EnsureSuccessStatusCode();
+
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            Assert.Contains("Welcome to Peer Tutor!", responseString);
+
         }
     }
 }

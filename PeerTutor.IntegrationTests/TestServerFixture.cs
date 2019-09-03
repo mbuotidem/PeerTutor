@@ -119,8 +119,8 @@ namespace PeerTutor.IntegrationTests
 
         public void Dispose()
         {
-            Client.Dispose();
-            _testServer.Dispose();
+            //Client.Dispose();
+            //_testServer.Dispose();
         }
     }
 }

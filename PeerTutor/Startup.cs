@@ -19,20 +19,38 @@ namespace PeerTutor
     {
         public IConfiguration Configuration { get; }
 
-        public Startup (IConfiguration configuration)
+        private IHostingEnvironment CurrentEnvironment { get; set; }
+
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
+        //public Startup (IConfiguration configuration, IHostingEnvironment env)
+        //{
+        //    Configuration = configuration;
+
+        //    CurrentEnvironment = env;
+        //}
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //if (CurrentEnvironment.IsDevelopment())
+            //{
+            //    services.AddDbContext<AppDbContext>(options => 
+            //    options.UseInMemoryDatabase("PeerTutor"));
+            //}
+            //else
+            //{
+            //    // Add AppplicationDbContext to DI
+            //    services.AddDbContext<AppDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //}
             // Add AppplicationDbContext to DI
             services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddTransient<ICourseRepository, CourseRepository>();
             // Add third-party authentication
 
             services.AddAuthentication(options =>
@@ -76,7 +94,9 @@ namespace PeerTutor
                     return System.Threading.Tasks.Task.CompletedTask;
                 };
             });
-            
+
+            services.AddTransient<ICourseRepository, CourseRepository>();
+
             services.AddMvc(options =>
             {
                 AuthorizationPolicy policy = new AuthorizationPolicyBuilder()

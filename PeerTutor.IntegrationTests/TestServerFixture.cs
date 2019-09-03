@@ -64,9 +64,9 @@ namespace PeerTutor.IntegrationTests
                 });
 
 
-            _testServer = new TestServer(builder);
+            //_testServer = new TestServer(builder);
 
-            Client = _testServer.CreateClient();
+            //Client = _testServer.CreateClient();
 
         }
 

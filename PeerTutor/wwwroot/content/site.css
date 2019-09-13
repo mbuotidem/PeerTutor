@@ -32,6 +32,11 @@ a:focus {
 }
 
 .navbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: inherit;
     padding: 15px 10px;
     background: #fff;
     border: none;

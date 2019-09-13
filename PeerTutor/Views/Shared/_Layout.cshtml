@@ -52,7 +52,10 @@
                         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">My Profile</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                             <li>
-                                <a href="#">Add Expertise</a>
+                                <a asp-controller="CourseTutors" asp-action="Create">Add Expertise</a>
+                            </li>
+                            <li>
+                                <a asp-controller="CourseTutors" asp-action="Index">View Expertise</a>
                             </li>
                             <li>
                                 <a href="#">Add Availability</a>
@@ -89,20 +92,22 @@
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="nav navbar-nav ml-auto">
-                                
+
                                 <li class="nav-item">
                                     <a asp-controller="Home" asp-action="Privacy" class="nav-link">Privacy</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">FAQ</a>
                                 </li>
-                                
+
                                 <partial name="_LoginPartial" />
                             </ul>
                         </div>
                     </div>
                 </nav>
 
+                <div class="p-4"></div>
+               <partial name="_StatusMessages" />
 
                 <div>
                     @RenderBody()

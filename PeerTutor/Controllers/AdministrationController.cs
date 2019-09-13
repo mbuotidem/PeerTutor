@@ -196,7 +196,7 @@ namespace PeerTutor.Controllers
             {
                 var user = await userManager.FindByIdAsync(model[i].UserId);
 
-                IdentityResult result = null;
+                IdentityResult result;
 
                 if (model[i].IsSelected && !(await userManager.IsInRoleAsync(user, role.Name)))
                 {

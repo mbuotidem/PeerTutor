@@ -4,7 +4,6 @@ using Moq;
 using PeerTutor.Controllers;
 using PeerTutor.Models;
 using PeerTutor.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -15,9 +14,9 @@ namespace PeerTutor.Tests.Controller
 {
     public class HomeControllerShould
     {
-        Mock<ICourseRepository> mockRepo = new Mock<ICourseRepository>();
-        Mock<IIdentity> identity = new Mock<IIdentity>();
-        Mock<ClaimsPrincipal> mockPrincipal = new Mock<ClaimsPrincipal>();
+        private readonly Mock<ICourseRepository> mockRepo = new Mock<ICourseRepository>();
+        private readonly Mock<IIdentity> identity = new Mock<IIdentity>();
+        private readonly Mock<ClaimsPrincipal> mockPrincipal = new Mock<ClaimsPrincipal>();
         public HomeControllerShould()
         {
             
@@ -38,15 +37,15 @@ namespace PeerTutor.Tests.Controller
                        
             identity.SetupGet(i => i.IsAuthenticated).Returns(false);
             
-            var controller = new HomeController(mockRepo.Object);
+            var sut = new HomeController(mockRepo.Object);
 
-            controller.ControllerContext.HttpContext = new DefaultHttpContext()
+            sut.ControllerContext.HttpContext = new DefaultHttpContext()
             {
                 User = mockPrincipal.Object
             };
             
             //Act
-            var result = controller.Index();
+            var result = sut.Index();
 
             //Assert
             var viewResult = Assert.IsType<ViewResult>(result);
@@ -60,15 +59,15 @@ namespace PeerTutor.Tests.Controller
         public void RedirectToMenuPageIfUserAuthenticated()
         {
             //Arrange            
-            var controller = new HomeController(mockRepo.Object);
+            var sut = new HomeController(mockRepo.Object);
 
-            controller.ControllerContext.HttpContext = new DefaultHttpContext()
+            sut.ControllerContext.HttpContext = new DefaultHttpContext()
             {
                 User = mockPrincipal.Object
             };
 
             //Act
-            var result = controller.Index();
+            var result = sut.Index();
 
             //Assert
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
@@ -82,10 +81,10 @@ namespace PeerTutor.Tests.Controller
         public void ReturnViewForMenuWithAListOfCourses()
         {
             //Arrange
-            var controller = new HomeController(mockRepo.Object);
+            var sut = new HomeController(mockRepo.Object);
 
             //Act
-            var result = controller.Menu();
+            var result = sut.Menu();
 
             //Assert
 
@@ -99,10 +98,10 @@ namespace PeerTutor.Tests.Controller
         public void ReturnViewForPrivacy()
         {
             //Arrange
-            var controller = new HomeController(mockRepo.Object);
+            var sut = new HomeController(mockRepo.Object);
 
             //Act
-            var result = controller.Privacy();
+            var result = sut.Privacy();
 
             //Assert
             var viewResult = Assert.IsType<ViewResult>(result);
@@ -115,10 +114,10 @@ namespace PeerTutor.Tests.Controller
         public void ReturnViewForFaq()
         {
             //Arrange
-            var controller = new HomeController(mockRepo.Object);
+            var sut = new HomeController(mockRepo.Object);
 
             //Act
-            var result = controller.Faq();
+            var result = sut.Faq();
 
             //Assert
             var viewResult = Assert.IsType<ViewResult>(result);

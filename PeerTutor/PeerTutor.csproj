@@ -7,6 +7,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190907192244_AddCourseTutors.cs" />
+    <Compile Remove="Migrations\20190907192244_AddCourseTutors.Designer.cs" />
+    <Compile Remove="Migrations\20190907203233_AddCourseTutors.cs" />
+    <Compile Remove="Migrations\20190907203233_AddCourseTutors.Designer.cs" />
+    <Compile Remove="Migrations\20190907204033_AddCourseTutors.cs" />
+    <Compile Remove="Migrations\20190907204033_AddCourseTutors.Designer.cs" />
+    <Compile Remove="Migrations\20190907214723_AddCourseTutors.cs" />
+    <Compile Remove="Migrations\20190907214723_AddCourseTutors.Designer.cs" />
+    <Compile Remove="Migrations\20190907221411_AddCourseTutors.cs" />
+    <Compile Remove="Migrations\20190907221411_AddCourseTutors.Designer.cs" />
+    <Compile Remove="Migrations\20190908043610_AddCourseTutors.cs" />
+    <Compile Remove="Migrations\20190908043610_AddCourseTutors.Designer.cs" />
+    <Compile Remove="Migrations\20190908044237_AddCourseTutors.cs" />
+    <Compile Remove="Migrations\20190908044237_AddCourseTutors.Designer.cs" />
+    <Compile Remove="Migrations\20190908190922_AddCourseTutors.cs" />
+    <Compile Remove="Migrations\20190908190922_AddCourseTutors.Designer.cs" />
+    <Compile Remove="Migrations\20190908195150_AddCourseTutors.cs" />
+    <Compile Remove="Migrations\20190908195150_AddCourseTutors.Designer.cs" />
+    <Compile Remove="Migrations\20190908200654_AddCourseTutors.cs" />
+    <Compile Remove="Migrations\20190908200654_AddCourseTutors.Designer.cs" />
+    <Compile Remove="Migrations\20190908201855_AddCourseTutors.cs" />
+    <Compile Remove="Migrations\20190908201855_AddCourseTutors.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Azure.KeyVault" Version="3.0.4" />

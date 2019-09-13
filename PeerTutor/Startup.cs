@@ -26,7 +26,7 @@ namespace PeerTutor
             Configuration = configuration;
 
         }
-        //public Startup (IConfiguration configuration, IHostingEnvironment env)
+        //public Startup(IConfiguration configuration, IHostingEnvironment env)
         //{
         //    Configuration = configuration;
 
@@ -38,7 +38,7 @@ namespace PeerTutor
         {
             //if (CurrentEnvironment.IsDevelopment())
             //{
-            //    services.AddDbContext<AppDbContext>(options => 
+            //    services.AddDbContext<AppDbContext>(options =>
             //    options.UseInMemoryDatabase("PeerTutor"));
             //}
             //else
@@ -47,9 +47,17 @@ namespace PeerTutor
             //    services.AddDbContext<AppDbContext>(options =>
             //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             //}
+
             // Add AppplicationDbContext to DI
+            //services.AddDbContext<AppDbContext>(options =>
+            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
+            //Add AppplicationDbContext to DI
+
             services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //options.UseInMemoryDatabase("PeerTutor"));
 
             // Add third-party authentication
 
@@ -96,6 +104,7 @@ namespace PeerTutor
             });
 
             services.AddTransient<ICourseRepository, CourseRepository>();
+            services.AddTransient<CourseTutor>();
 
             services.AddMvc(options =>
             {
@@ -127,8 +136,13 @@ namespace PeerTutor
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}"
+                    template: "{controller=Home}/{action=Index}/{id?}/{id2?}"
                     );
+
+                //routes.MapRoute(
+                //   name: "composite",
+                //   template: "{controller=Home}/{action=Index}/{UserId?}/{CourseId?}"
+                //   );
             }
             );
         }

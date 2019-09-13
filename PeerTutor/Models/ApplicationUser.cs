@@ -32,6 +32,7 @@ namespace PeerTutor.Models
 
         public int ClassYear { get; set; }
 
+        public ICollection<CourseTutor> CourseTutors { get; set; }
 
     }
 }

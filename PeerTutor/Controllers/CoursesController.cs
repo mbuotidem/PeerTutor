@@ -10,7 +10,7 @@ using PeerTutor.Models;
 
 namespace PeerTutor.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class CoursesController : Controller
     {
         private readonly AppDbContext _context;

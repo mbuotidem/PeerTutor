@@ -30,7 +30,7 @@ namespace PeerTutor.Areas.Identity.Pages.Account
         public IEnumerable<SelectListItem> MajorTypes { get; set; }
         public IEnumerable<SelectListItem> ClassYears { get; set; }
 
-        public IEnumerable<string> allSchemeProvider { get; set; }
+        public IEnumerable<string> AllSchemeProvider { get; set; }
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
@@ -137,6 +137,13 @@ namespace PeerTutor.Areas.Identity.Pages.Account
             }
 
             // If we got this far, something failed, redisplay form
+            MajorTypes = htmlHelper.GetEnumSelectList<MajorType>();
+
+
+            ClassYears = Enumerable.Range(DateTime.Now.Year, 10).Select(x => new SelectListItem()
+            {
+                Text = x.ToString()
+            });
             return Page();
         }
     }

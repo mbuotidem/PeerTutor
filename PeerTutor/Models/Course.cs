@@ -23,6 +23,8 @@ namespace PeerTutor.Models
         public string CourseImageThumbnailUrl { get; set; }
 
         public ICollection<CourseTutor> CourseTutors { get; set; }
+
+        public virtual ICollection<Session> Sessions { get; set; }
     }
 }
 

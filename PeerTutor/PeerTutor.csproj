@@ -29,6 +29,8 @@
     <Compile Remove="Migrations\20190908200654_AddCourseTutors.Designer.cs" />
     <Compile Remove="Migrations\20190908201855_AddCourseTutors.cs" />
     <Compile Remove="Migrations\20190908201855_AddCourseTutors.Designer.cs" />
+    <Compile Remove="Migrations\20190921205242_AddSessions.cs" />
+    <Compile Remove="Migrations\20190921205242_AddSessions.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,8 +39,11 @@
     <PackageReference Include="Microsoft.Azure.KeyVault" Version="3.0.4" />
     <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.3.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.2.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="2.2.6" />
     <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="NetTopologySuite.Core" Version="1.15.3" />
+    <PackageReference Include="Stripe.net" Version="29.2.0" />
   </ItemGroup>
 
   <ItemGroup>

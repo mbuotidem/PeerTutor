@@ -1,0 +1,243 @@
+﻿@model PeerTutor.Models.Session
+@*@using Microsoft.Extensions.Options
+@inject IOptions<StripeSettings> Stripe*@
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@*<form action="/Home/Charge" method="POST">
+        <article>
+            <label>Amount: $5.00</label>
+        </article>
+        <script src="//checkout.stripe.com/v2/checkout.js"
+                class="stripe-button"
+                data-key="@Stripe.Value.PublishableKey"
+                data-locale="auto"
+                data-description="Sample Charge"
+                data-amount="500">
+        </script>
+    </form>*@
+
+<h1>Create</h1>
+
+<h4>Session</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" class="meeting-form">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Topic" class="control-label"></label>
+                <input asp-for="Topic" class="form-control" />
+                <span asp-validation-for="Topic" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartTime"></label>
+                <div class="form-group">
+                    <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                        <input asp-for="StartTime" name="StartTime" type="text" class="form-control datetimepicker-input form-inline" data-target="#datetimepicker1" />
+                        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                        <span asp-validation-for="StartTime" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EndTime"></label>
+                <div class="form-group">
+                    <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                        <input asp-for="EndTime" name="EndTime" type="text" class="form-control datetimepicker-input form-inline" data-target="#datetimepicker2" />
+                        <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                        <span asp-validation-for="EndTime" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    <label asp-for="EndTime" class="control-label"></label>
+                    <input asp-for="EndTime" class="form-control" />
+                    <span asp-validation-for="EndTime" class="text-danger"></span>
+                </div>
+            *@
+
+            <div class="form-group">
+                <label asp-for="BookerId" class="control-label"></label>
+                <select asp-for="BookerId" class="form-control" asp-items="ViewBag.BookerId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookedId" class="control-label"></label>
+                <select asp-for="BookedId" class="form-control" asp-items="ViewBag.BookedId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseId" class="control-label"></label>
+                <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            @*Stripe form*@
+            <div class="form-group">
+                    <label for="card-element" class="form-control bg-info">
+                        Tutoring costs $10/hr. Minimum duration : 1 hour.
+                    </label>
+                
+                
+                    <div id="card-element" class="form-control">
+                        <!-- a Stripe Element will be inserted here. -->
+                    </div>
+                
+                <!-- used to display Element errors -->
+                <div id="card-errors" role="alert"></div>
+            </div>
+            @*Stripe form*@
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+    <script src="https://js.stripe.com/v3/"></script>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=@(ViewBag.Secret)&libraries=places&amp;callback=initMap" async="" defer=""></script>
+    <script>
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+
+                sideBySide: true,
+                icons: {
+                    up: 'fa fa-arrow-up',
+                    down: 'fa fa-arrow-down',
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    close: 'fa fa-times'
+                },
+                buttons: { showClose: true }
+            });
+
+            $('#datetimepicker2').datetimepicker({
+
+                sideBySide: true,
+                icons: {
+                    up: 'fa fa-arrow-up',
+                    down: 'fa fa-arrow-down',
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    close: 'fa fa-times'
+                },
+                buttons: { showClose: true }
+            });
+        })
+
+        function initMap() {
+
+            google.maps.event.addDomListener(window, 'load', function () {
+                var options = {
+                    componentRestrictions: { country: "us" }
+                };
+
+                var input = document.getElementById('Location');
+                var places = new google.maps.places.Autocomplete(input, options);
+
+            });
+
+        }
+
+                // Create a Stripe client.
+        var stripe = Stripe("@(ViewBag.Stripe)");
+
+        // Create an instance of Elements.
+        var elements = stripe.elements();
+
+        // Custom styling can be passed to options when creating an Element.
+        // (Note that this demo uses a wider set of styles than the guide below.)
+        var style = {
+          base: {
+            color: '#32325d',
+            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+            fontSmoothing: 'antialiased',
+            fontSize: '16px',
+            '::placeholder': {
+              color: '#aab7c4'
+            }
+          },
+          invalid: {
+            color: '#fa755a',
+            iconColor: '#fa755a'
+          }
+        };
+
+        // Create an instance of the card Element.
+        var card = elements.create('card', {style: style});
+
+        // Add an instance of the card Element into the `card-element` <div>.
+        card.mount('#card-element');
+
+        // Handle real-time validation errors from the card Element.
+        card.addEventListener('change', function(event) {
+          var displayError = document.getElementById('card-errors');
+          if (event.error) {
+            displayError.textContent = event.error.message;
+          } else {
+            displayError.textContent = '';
+          }
+        });
+
+        // Handle form submission.
+        var form = document.getElementById('meeting-form');
+        form.addEventListener('submit', function(event) {
+          event.preventDefault();
+
+          stripe.createToken(card).then(function(result) {
+            if (result.error) {
+              // Inform the user if there was an error.
+              var errorElement = document.getElementById('card-errors');
+              errorElement.textContent = result.error.message;
+            } else {
+              // Send the token to your server.
+              stripeTokenHandler(result.token);
+            }
+          });
+        });
+
+        // Submit the form with the token ID.
+        function stripeTokenHandler(token) {
+          // Insert the token ID into the form so it gets submitted to the server
+          var form = document.getElementById('payment-form');
+          var hiddenInput = document.createElement('input');
+          hiddenInput.setAttribute('type', 'hidden');
+          hiddenInput.setAttribute('name', 'stripeToken');
+          hiddenInput.setAttribute('value', token.id);
+          form.appendChild(hiddenInput);
+
+          // Submit the form
+          form.submit();
+        }
+
+
+        
+
+
+    </script>
+
+}

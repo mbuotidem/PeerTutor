@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NetTopologySuite;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -12,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PeerTutor.Models;
+using Stripe;
 
 namespace PeerTutor
 {
@@ -56,8 +58,11 @@ namespace PeerTutor
             //Add AppplicationDbContext to DI
 
             services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            //options.UseInMemoryDatabase("PeerTutor"));
+            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.UseNetTopologySuite()));
+            options.UseInMemoryDatabase("PeerTutor"));
+
+            // Automatically perform database migration
+            //services.BuildServiceProvider().GetService<AppDbContext>().Database.Migrate();
 
             // Add third-party authentication
 
@@ -103,6 +108,14 @@ namespace PeerTutor
                 };
             });
 
+            //Add Stripe
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
+            
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
+
+
+
+
             services.AddTransient<ICourseRepository, CourseRepository>();
             services.AddTransient<CourseTutor>();
 
@@ -118,7 +131,7 @@ namespace PeerTutor
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            UpdateDatabase(app);
+            //UpdateDatabase(app);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

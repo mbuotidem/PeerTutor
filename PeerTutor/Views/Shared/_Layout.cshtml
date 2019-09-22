@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width" />
     <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
     <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/lib/datepicker/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
     <link href="~/content/site.css" rel="stylesheet" />
     <script src="~/lib/jquery/jquery.js"></script>
     <script src="~/lib/jqueryui/jquery-ui.js"></script>
     <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
+    <script src="~/lib/moment.js/moment.min.js"></script>
+    <script src="~/lib/datepicker/js/tempusdominus-bootstrap-4.js"></script>
+
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- jQuery Custom Scroller CDN -->
@@ -64,10 +68,18 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#">My Sessions</a>
+                        <a href="#sessions" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">My Sessions</a>
+                        <ul class="collapse list-unstyled" id="sessions">
+                            <li>
+                                <a asp-controller="Sessions" asp-action="Index">View Sessions</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Sessions" asp-action="Index">Cancel a Session</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="#">Book a Session</a>
+                        <a asp-controller="Sessions" asp-action="Create">Book a Session</a>
                     </li>
                     <li>
                         <a href="#">Leave a Review</a>

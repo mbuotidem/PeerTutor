@@ -1,0 +1,143 @@
+﻿@model PeerTutor.Models.Session
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Session</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Topic" class="control-label"></label>
+                <input asp-for="Topic" class="form-control" />
+                <span asp-validation-for="Topic" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartTime"></label>
+                <div class="form-group">
+                    <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                        <input asp-for="StartTime" name="StartTime" type="text" class="form-control datetimepicker-input form-inline" data-target="#datetimepicker1" />
+                        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                        <span asp-validation-for="StartTime" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EndTime"></label>
+                <div class="form-group">
+                    <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                        <input asp-for="EndTime" name="EndTime" type="text" class="form-control datetimepicker-input form-inline" data-target="#datetimepicker2" />
+                        <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                        <span asp-validation-for="EndTime" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookerId" class="control-label"></label>
+                <select asp-for="BookerId" class="form-control" asp-items="ViewBag.BookerId"></select>
+                <span asp-validation-for="BookerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookedId" class="control-label"></label>
+                <select asp-for="BookedId" class="form-control" asp-items="ViewBag.BookedId"></select>
+                <span asp-validation-for="BookedId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourseId" class="control-label"></label>
+                <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
+                <span asp-validation-for="CourseId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=@(ViewBag.Secret)&libraries=places&amp;callback=initMap" async="" defer=""></script>
+    <script>
+        $(function () {
+            /*var parseInputDate = function (inputDate) {
+                var resultDate;
+                if (moment.isMoment(inputDate) || inputDate instanceof Date) {
+                    resultDate = moment(inputDate);
+                } else {
+                    resultDate = moment(inputDate, window.currentDateTimeFormat);
+                }
+                return resultDate;
+            }
+
+*/
+            $('#datetimepicker1').datetimepicker({
+                //parseInputDate: parseInputDate,
+                sideBySide: true,
+                icons: {
+                    up: 'fa fa-arrow-up',
+                    down: 'fa fa-arrow-down',
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    close: 'fa fa-times'
+                },
+                buttons: { showClose: true }
+            });
+
+             $('#datetimepicker2').datetimepicker({
+                //parseInputDate: parseInputDate,
+                sideBySide: true,
+                icons: {
+                    up: 'fa fa-arrow-up',
+                    down: 'fa fa-arrow-down',
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    close: 'fa fa-times'
+                },
+                buttons: { showClose: true }
+            });
+        })
+
+        function initMap() {
+
+            google.maps.event.addDomListener(window, 'load', function () {
+            var options = {
+                componentRestrictions: { country: "us" }
+            };
+
+            var input = document.getElementById('Location');
+                var places = new google.maps.places.Autocomplete(input, options);
+
+            });
+
+        }
+
+
+    </script>
+
+}

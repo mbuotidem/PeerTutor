@@ -34,5 +34,9 @@ namespace PeerTutor.Models
 
         public ICollection<CourseTutor> CourseTutors { get; set; }
 
+        public ICollection<Session> BookedBy { get; set; }
+
+        public ICollection<Session> BookedWith { get; set; }
+
     }
 }

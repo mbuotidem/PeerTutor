@@ -194,17 +194,23 @@ namespace PeerTutor.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CourseDescription");
+                    b.Property<string>("CourseDescription")
+                        .IsRequired();
 
-                    b.Property<string>("CourseImageThumbnailUrl");
+                    b.Property<string>("CourseImageThumbnailUrl")
+                        .IsRequired();
 
-                    b.Property<string>("CourseNumber");
+                    b.Property<string>("CourseNumber")
+                        .IsRequired();
 
-                    b.Property<string>("CourseTitle");
+                    b.Property<string>("CourseTitle")
+                        .IsRequired();
 
-                    b.Property<string>("Major");
+                    b.Property<string>("Major")
+                        .IsRequired();
 
-                    b.Property<string>("MajorShortCode");
+                    b.Property<string>("MajorShortCode")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -224,6 +230,43 @@ namespace PeerTutor.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("CourseTutors");
+                });
+
+            modelBuilder.Entity("PeerTutor.Models.Session", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BookedId")
+                        .IsRequired();
+
+                    b.Property<string>("BookerId")
+                        .IsRequired();
+
+                    b.Property<int>("CourseId");
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<DateTime>("EndTime");
+
+                    b.Property<string>("Location");
+
+                    b.Property<DateTime>("StartTime");
+
+                    b.Property<string>("Topic")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookedId");
+
+                    b.HasIndex("BookerId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("Session");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -281,6 +324,24 @@ namespace PeerTutor.Migrations
                     b.HasOne("PeerTutor.Models.ApplicationUser", "User")
                         .WithMany("CourseTutors")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PeerTutor.Models.Session", b =>
+                {
+                    b.HasOne("PeerTutor.Models.ApplicationUser", "Booked")
+                        .WithMany("BookedWith")
+                        .HasForeignKey("BookedId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PeerTutor.Models.ApplicationUser", "Booker")
+                        .WithMany("BookedBy")
+                        .HasForeignKey("BookerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("PeerTutor.Models.Course", "Course")
+                        .WithMany("Sessions")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

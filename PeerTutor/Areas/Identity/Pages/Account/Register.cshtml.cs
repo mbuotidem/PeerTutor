@@ -84,7 +84,12 @@ namespace PeerTutor.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Class Year")]
             public int ClassYear { get; set; }
-            
+
+            [Required]
+            [Phone]
+            [Display(Name = "Phone number")]
+            public string PhoneNumber { get; set; }
+
 
         }
 
@@ -111,7 +116,7 @@ namespace PeerTutor.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName, Major = Input.Major, ClassYear = Input.ClassYear };
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName, Major = Input.Major, ClassYear = Input.ClassYear, PhoneNumber = Input.PhoneNumber };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

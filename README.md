@@ -14,11 +14,13 @@ Azure Project: [Dashboard](https://dev.azure.com/miisaac/PeerTutor.us/_dashboard
 |--|--|
 | Third party authentication via Google or Facebook |Done  |
 | Continuous Integration and Continuous Deployment via Azure Pipelines on Azure DevOps Services |Done  |
-|  Microsoft SQL Server Database as the back-end data store|  Done|
+|  Setup Microsoft SQL Server Database as the back-end data store|  Done|
+|  Stripe Integration for payments| Done  |
+|  Google Maps Integration for location| Done  |
+|  Tutoring session booking flow | In Progress  |
 |  Unit Tests via xUnit| Ongoing  |
-|  Google Maps Integration for location| To Do  |
+|  Twilio Integration for reminders| To Do  |
 |  User Profiles for Tutors| To Do  |
-|  Tutoring session booking flow | To Do  |
-|  Stripe Integration for payments| To Do  |
 |  Review system for tutors| To Do  |
+
 

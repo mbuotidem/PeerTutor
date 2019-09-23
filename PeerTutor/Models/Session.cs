@@ -41,6 +41,7 @@ namespace PeerTutor.Models
         [Display(Name ="Course")]
         public virtual Course Course { get; set; }
 
+        [Required]
         public string Location { get; set; }
 
         IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)

@@ -7,31 +7,7 @@
     <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="~/lib/datepicker/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
     <link href="~/content/site.css" rel="stylesheet" />
-    <script src="~/lib/jquery/jquery.js"></script>
-    <script src="~/lib/jqueryui/jquery-ui.js"></script>
-    <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
-    <script src="~/lib/moment.js/moment.min.js"></script>
-    <script src="~/lib/datepicker/js/tempusdominus-bootstrap-4.js"></script>
-
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- jQuery Custom Scroller CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#sidebar").mCustomScrollbar({
-                theme: "minimal"
-            });
-
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar, #content').toggleClass('active');
-                $('.collapse.in').toggleClass('in');
-                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-            });
-        });
-    </script>
+    
 
 
     <title>@ViewBag.Title</title>
@@ -49,7 +25,7 @@
                     <a asp-controller="Home" asp-action="Menu"><h3>PeerTutor</h3></a>
                 </div>
 
-                
+
                 <ul class="list-unstyled components">
 
                     <li>
@@ -119,12 +95,40 @@
                 </nav>
 
                 <div class="p-4"></div>
-               <partial name="_StatusMessages" />
+                <partial name="_StatusMessages" />
+                <partial name="GoogleAnalytics" />
 
                 <div>
                     @RenderBody()
                 </div>
             </div>
+
+            <script src="~/lib/jquery/jquery.js"></script>
+            <script src="~/lib/jqueryui/jquery-ui.js"></script>
+            <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
+            <script src="~/lib/moment.js/moment.min.js"></script>
+            <script src="~/lib/datepicker/js/tempusdominus-bootstrap-4.js"></script>
+
+            <!-- Popper.JS -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+            <!-- jQuery Custom Scroller CDN -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $("#sidebar").mCustomScrollbar({
+                        theme: "minimal"
+                    });
+
+                    $('#sidebarCollapse').on('click', function () {
+                        $('#sidebar, #content').toggleClass('active');
+                        $('.collapse.in').toggleClass('in');
+                        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+                    });
+                });
+            </script>
+
             @RenderSection("Scripts", required: false)
         </div>
 

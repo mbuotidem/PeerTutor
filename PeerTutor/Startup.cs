@@ -109,8 +109,6 @@ namespace PeerTutor
             });
 
             //Add Stripe
-            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
-            
             StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
 
 

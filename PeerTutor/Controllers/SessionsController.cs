@@ -89,6 +89,8 @@ namespace PeerTutor.Controllers
                     Source = stripeToken
                 });
 
+                // Get the payment token submitted by the form:
+
                 var charge = charges.Create(new ChargeCreateOptions
                 {
                     Amount = 500,
@@ -97,7 +99,8 @@ namespace PeerTutor.Controllers
                     CustomerId = customer.Id
                 });
 
-                if(charge.Status == "succeeded")
+
+                if (charge.Status == "succeeded")
                 {
                     _context.Add(session);
                     await _context.SaveChangesAsync();

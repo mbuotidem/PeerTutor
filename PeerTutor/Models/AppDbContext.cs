@@ -48,6 +48,16 @@ namespace PeerTutor.Models
                 .WithOne(r => r.Booked)
                 .HasForeignKey(r => r.BookedId);
 
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.ReviewsBy)
+                .WithOne(r => r.Reviewer)
+                .HasForeignKey(r => r.ReviewerId);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.ReviewsFor)
+                .WithOne(r => r.Reviewed)
+                .HasForeignKey(r => r.RevieweeId);
+
             
 
         }
@@ -56,6 +66,10 @@ namespace PeerTutor.Models
 
         public DbSet<CourseTutor> CourseTutors { get; set; }
 
-        public DbSet<PeerTutor.Models.Session> Session { get; set; }
+        public DbSet<Session> Session { get; set; }
+
+        public DbSet<Review> Reviews { get; set; }
+
+        public DbSet<StarRating> Ratings { get; set; }
     }
 }

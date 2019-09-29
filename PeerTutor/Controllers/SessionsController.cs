@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using PeerTutor.Extensions;
 using PeerTutor.Models;
 using Stripe;
 
@@ -33,7 +35,8 @@ namespace PeerTutor.Controllers
         // GET: Sessions
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Session.Include(s => s.Booked).Include(s => s.Booker).Include(s => s.Course);
+            var appDbContext = _context.Session.Include(s => s.Booked).Include(s => s.Booker).Include(s => s.Course)
+                .Where(c => (c.BookedId == this.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString() || c.BookerId == this.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString())); ;
             return View(await appDbContext.ToListAsync());
         }
 
@@ -59,11 +62,17 @@ namespace PeerTutor.Controllers
         }
 
         // GET: Sessions/Create
-        public IActionResult Create()
+        public IActionResult Create(string bookedWith, int courseId)
         {
-            ViewData["BookedId"] = new SelectList(_context.Users, "Id", "FirstName");
-            ViewData["BookerId"] = new SelectList(_context.Users, "Id", "FirstName");
-            ViewData["CourseId"] = new SelectList(_context.Courses, "Id", "CourseTitle");
+            if (bookedWith == this.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString())
+            {
+                return RedirectToAction("ShowExperts","CourseTutors", new { courseId = courseId } ).WithWarning("You were redirected!", "You cannot book a tutoring session with yourself.");
+            }
+            //ViewData["BookedId"] = new SelectList(_context.Users, "Id", "FirstName");
+            //ViewData["BookerId"] = new SelectList(_context.Users, "Id", "FirstName");
+            ViewData["BookerId"] = User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString();
+            ViewData["BookedId"] = bookedWith;
+            ViewData["CourseId"] = courseId;
             ViewBag.Secret = Configuration["MapsAPI"];
             ViewBag.Stripe = Configuration["StripePK"];
             return View();
@@ -104,7 +113,7 @@ namespace PeerTutor.Controllers
                 {
                     _context.Add(session);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index)).WithSuccess("Session booked!", "Remember to prepare your questions in advance so your session will be uberproductive.");
                 }
 
                 //_context.Add(session);

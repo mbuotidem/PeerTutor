@@ -19,7 +19,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea asp-for="Description" class="form-control"  rows="5"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -49,13 +49,17 @@
             </div>
 
             @*<div class="form-group">
-                    <label asp-for="EndTime" class="control-label"></label>
-                    <input asp-for="EndTime" class="form-control" />
-                    <span asp-validation-for="EndTime" class="text-danger"></span>
-                </div>
+            <label asp-for="EndTime" class="control-label"></label>
+            <input asp-for="EndTime" class="form-control" />
+            <span asp-validation-for="EndTime" class="text-danger"></span>
+        </div>
             *@
 
-            <div class="form-group">
+            <input type="hidden" asp-for="BookerId" value="@ViewData["BookerId"]"/>
+            <input type="hidden" asp-for="BookedId" value="@ViewData["BookedId"]"/>
+            <input type="hidden" asp-for="CourseId" />
+
+            @*<div class="form-group">
                 <label asp-for="BookerId" class="control-label"></label>
                 <select asp-for="BookerId" class="form-control" asp-items="ViewBag.BookerId"></select>
             </div>
@@ -66,7 +70,7 @@
             <div class="form-group">
                 <label asp-for="CourseId" class="control-label"></label>
                 <select asp-for="CourseId" class="form-control" asp-items="ViewBag.CourseId"></select>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="Location" class="control-label"></label>
                 <input asp-for="Location" class="form-control" />
@@ -74,15 +78,15 @@
             </div>
             @*Stripe form*@
             <div class="form-group">
-                    <label for="card-element" class="form-control bg-info">
-                        Tutoring costs $10/hr. Minimum duration : 1 hour.
-                    </label>
-                
-                
-                    <div id="card-element" class="form-control">
-                        <!-- a Stripe Element will be inserted here. -->
-                    </div>
-                
+                <label for="card-element" class="form-control bg-info">
+                    Tutoring costs $10/hr. Minimum duration : 1 hour.
+                </label>
+
+
+                <div id="card-element" class="form-control">
+                    <!-- a Stripe Element will be inserted here. -->
+                </div>
+
                 <!-- used to display Element errors -->
                 <div id="card-errors" role="alert"></div>
             </div>
@@ -96,7 +100,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to My Sessions</a>
 </div>
 
 

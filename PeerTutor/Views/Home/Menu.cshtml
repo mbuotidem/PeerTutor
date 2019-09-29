@@ -2,25 +2,28 @@
 
 @{
     ViewBag.Title = "Course Menu";
-    
+
 
 }
-    <h2 class="mt-5 text-center">Book a Session</h2>
+@*<h2 class="mt-5 text-center">Book a Session</h2>*@
+<h4 class="text-center">Book a Session</h4>
+
 <div class="card-deck">
     @foreach (var course in Model.Courses)
     {
-    
+
         <div class="card mt-4">
 
             <img class="card-img-top" src=@course.CourseImageThumbnailUrl />
             <div class="card-body">
                 <div class="card-text text-center">
                     <h3>IT - @course.CourseNumber</h3>
-                    <button class="btn btn-info">Get Help</button>
+                    @Html.ActionLink("Get Help", "ShowExperts", "CourseTutors", new { courseId = @course.Id, courseTitle = course.CourseTitle }, new { @class = "btn btn-info" })
+
                 </div>
             </div>
         </div>
 
-    
+
     }
 </div>

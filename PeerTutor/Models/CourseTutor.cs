@@ -21,15 +21,18 @@ namespace PeerTutor.Models
 
         //From User
         [Required]
+        [ForeignKey("User")]
         public string UserId { get; set; }
 
+        [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
 
 
         //From Course
         [Required]
+        [ForeignKey("Course")]
         public int CourseId { get; set; }
-        
+        [ForeignKey("CourseId")]
         public virtual Course Course { get; set; }
 
         

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<PeerTutor.Models.Session>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "My Sessions";
 }
 
-<h1>Index</h1>
+<h1>My Sessions</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-controller="Home" asp-action="Menu" >Book New</a>
 </p>
 <table class="table">
     <thead>

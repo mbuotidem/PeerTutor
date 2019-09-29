@@ -13,6 +13,10 @@ namespace PeerTutor.Models
     /// </summary>
     public class ApplicationUser : IdentityUser
     {
+        public ApplicationUser()
+        {
+            Ratings = new HashSet<StarRating>();
+        }
         public enum MajorType
         {
             [Display(Name = "Computer Information Technology")] CIT,
@@ -37,6 +41,40 @@ namespace PeerTutor.Models
         public ICollection<Session> BookedBy { get; set; }
 
         public ICollection<Session> BookedWith { get; set; }
+
+        public int RateCount
+        {
+            //get {
+            //    if (Ratings != null)
+            //    {
+            //        return Ratings.Count;
+            //    }
+            //    return 0;
+            //    }
+            //get { return (Ratings.Count > 0 ? Ratings.Count : 0); }
+            get { return Ratings.Count; }
+        }
+
+        public int RateTotal
+        {
+            get
+            {
+            //    if (Ratings != null)
+            //    {
+            //        return Ratings.Sum(m => m.Stars);
+            //    }
+
+            //    return 0;
+                //return (Ratings.Sum(m => m.Stars) > 0 ? Ratings.Sum(m => m.Stars) : 0);
+                return (Ratings.Sum(m => m.Stars));
+            }
+        }
+
+        public virtual ICollection<StarRating> Ratings { get; set; }
+
+        public virtual ICollection<Review> ReviewsFor { get; set; }
+
+        public virtual ICollection<Review> ReviewsBy { get; set; }
 
     }
 }

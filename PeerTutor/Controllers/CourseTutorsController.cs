@@ -205,5 +205,31 @@ namespace PeerTutor.Controllers
         {
             return _context.CourseTutors.Any(e => e.UserId == id);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ShowExperts(int courseId)
+        {
+            //var appDbContext = _context.CourseTutors.Include(c => c.Course).Include(c => c.User).Where(c => c.UserId == this.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString());
+            var courseTutors = await _context.CourseTutors
+                .Include(c => c.User)
+                .Include(c => c.User.Ratings)
+                .Include(c => c.Course)
+                .Where(c => c.CourseId == courseId).ToListAsync();
+
+
+            //var courseTutor = await _context.CourseTutors
+            //    .Include(c => c.Course)
+            //    .Include(c => c.User)
+            //    .Where(c => c.UserId == this.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString()) //only show for currently logged in user
+            //    .Where(c => c.CourseId == courseId)
+            //    .FirstOrDefaultAsync(m => m.UserId == this.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString());
+
+            //courseTutors.Remove(courseTutor);
+
+            ViewData["CourseTitle"] = _context.Courses.Find(courseId).CourseTitle;
+                
+
+            return View("Experts", courseTutors);
+        }
     }
 }

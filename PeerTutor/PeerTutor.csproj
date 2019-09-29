@@ -31,6 +31,8 @@
     <Compile Remove="Migrations\20190908201855_AddCourseTutors.Designer.cs" />
     <Compile Remove="Migrations\20190921205242_AddSessions.cs" />
     <Compile Remove="Migrations\20190921205242_AddSessions.Designer.cs" />
+    <Compile Remove="Migrations\20190925165020_ReviewsAndRatings.cs" />
+    <Compile Remove="Migrations\20190925165020_ReviewsAndRatings.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

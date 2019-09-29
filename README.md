@@ -17,10 +17,12 @@ Azure Project: [Dashboard](https://dev.azure.com/miisaac/PeerTutor.us/_dashboard
 |  Setup Microsoft SQL Server Database as the back-end data store|  Done|
 |  Stripe Integration for payments| Done  |
 |  Google Maps Integration for location| Done  |
+|  Review system for tutors| Done  |
 |  Tutoring session booking flow | In Progress  |
 |  Unit Tests via xUnit| Ongoing  |
 |  Twilio Integration for reminders| To Do  |
 |  User Profiles for Tutors| To Do  |
 |  Review system for tutors| To Do  |
+|  User to User Chat via SignalR| To Do  |
 
 

@@ -98,11 +98,15 @@ namespace PeerTutor.Controllers
                     Source = stripeToken
                 });
 
+                //Calculate duration. Fee is $10 per hour 
+                var hourlyCharge = 10;
+                TimeSpan duration = session.EndTime - session.StartTime;
+                var chargeAmount = hourlyCharge / 60.0 * duration.TotalMinutes * 100; 
                 // Get the payment token submitted by the form:
 
                 var charge = charges.Create(new ChargeCreateOptions
                 {
-                    Amount = 500,
+                    Amount = (long)chargeAmount,
                     Description = "Sample Charge",
                     Currency = "usd",
                     CustomerId = customer.Id

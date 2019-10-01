@@ -17,7 +17,7 @@
             <img class="card-img-top" src=@course.CourseImageThumbnailUrl />
             <div class="card-body">
                 <div class="card-text text-center">
-                    <h3>IT - @course.CourseNumber</h3>
+                    <h3>@course.MajorShortCode - @course.CourseNumber</h3>
                     @Html.ActionLink("Get Help", "ShowExperts", "CourseTutors", new { courseId = @course.Id, courseTitle = course.CourseTitle }, new { @class = "btn btn-info" })
 
                 </div>

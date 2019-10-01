@@ -212,7 +212,8 @@ namespace PeerTutor.Controllers
             //var appDbContext = _context.CourseTutors.Include(c => c.Course).Include(c => c.User).Where(c => c.UserId == this.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString());
             var courseTutors = await _context.CourseTutors
                 .Include(c => c.User)
-                .Include(c => c.User.Ratings)
+                //nclude(c => c.User.Ratings)
+                .Include(c => c.User.ReviewsFor)
                 .Include(c => c.Course)
                 .Where(c => c.CourseId == courseId).ToListAsync();
 

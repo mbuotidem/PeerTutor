@@ -8,11 +8,18 @@ namespace PeerTutor.Models
 {
     public class Review
     {
+        public Review()
+        {
+            ReviewDate = DateTime.Now;
+        }
         public int Id { get; set; }
 
         [Required]
         [Display(Name = "Review Date")]
         public DateTime ReviewDate { get; set; }
+
+        [Required]
+        public int Stars { get; set; }
 
         [Required]
         [Display(Name = "Review Content")]

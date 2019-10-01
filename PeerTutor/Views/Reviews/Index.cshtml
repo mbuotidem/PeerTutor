@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<PeerTutor.Models.Review>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Reviews";
 }
 
-<h1>Index</h1>
+<h1>Reviews</h1>
 
-
-<table class="table">
+<br />
+<table class="table" id="reviews-table">
     <thead>
         <tr>
             <th>
@@ -22,7 +22,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ReviewContent)
             </th>
-
+            <th>
+                @Html.DisplayNameFor(model => model.Stars)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -42,13 +44,161 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ReviewContent)
                 </td>
-
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+
+                    <img src="~/images/star-off.png" alt="Star Rating" align="middle" id="1" class="rating" userId="@ViewBag.UserId" />
+                    <img src="~/images/star-off.png" alt="Star Rating" align="middle" id="2" class="rating" userId="@ViewBag.UserId" />
+                    <img src="~/images/star-off.png" alt="Star Rating" align="middle" id="3" class="rating" userId="@ViewBag.UserId" />
+                    <img src="~/images/star-off.png" alt="Star Rating" align="middle" id="4" class="rating" userId="@ViewBag.UserId" />
+                    <img src="~/images/star-off.png" alt="Star Rating" align="middle" id="5" class="rating" userId="@ViewBag.UserId" />
+
+                    @{if (item.Reviewed.RateCount > 0)
+                        {
+                            decimal a = item.Stars; <span class="avr" style="display:none;"> @a</span> } }<br />
+                </td>
+                <td>
+                    @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+
+@section Scripts{
+
+    <script>
+
+
+        $('#reviews-table > tbody  > tr').each(function () {
+
+            //var av = $(this).find("span.avr").text();
+            var av = $(this).find("span.avr").text();
+
+            if (av != "" || av != null) {
+                // alert(av);
+                // fillRating(parseInt(av));
+                var img = $(this).find("img[id='" + parseInt(av) + "']");
+                img.attr("src", "/images/star-on.png").prevAll("img.rating").attr("src", "/images/star-on.png");
+            }
+
+        });
+    </script>
+
+    <script>
+        $(function () {
+            var placeholderElement = $('#modal-placeholder');
+            $('button[data-toggle="ajax-modal"]').click(function (event) {
+                var url = $(this).data('url');
+                $.get(url).done(function (data) {
+                    placeholderElement.html(data);
+                    placeholderElement.find('.modal').modal('show');
+                });
+            });
+
+            placeholderElement.on('click', '[data-save="modal"]', function (event) {
+                event.preventDefault();
+                //hiddenInput = SubmitComment();
+                if ($("#Rating").val() == "0") {
+                    //alert("Please give this tutor a star rating.");
+                    sweetAlert("A star rating is required", "Please click on the stars to give one", "error");
+                    //return false;
+                }
+                else {
+                    var hiddenInput = document.createElement('input');
+                    hiddenInput.setAttribute('type', 'hidden');
+                    hiddenInput.setAttribute('name', 'Stars');
+                    hiddenInput.setAttribute('value', $("#Rating").val());
+                    //return hiddenInput;
+
+                    var form = $(this).parents('.modal').find('form');
+                    form.append(hiddenInput);
+                    var actionUrl = form.attr('action');
+                    var dataToSend = form.serialize();
+
+                    $.post(actionUrl, dataToSend).done(function (data) {
+            var newBody = $('.modal-body', data);
+            placeholderElement.find('.modal-body').replaceWith(newBody);
+
+            var isValid = newBody.find('[name="IsValid"]').val() == 'True';
+            if (isValid) {
+                placeholderElement.find('.modal').modal('hide');
+            }
+        });
+                }
+            });
+            });
+        
+
+    </script>
+
+    <script src="~/lib/sweetalert/sweetalert.js"></script>
+
+    <script>
+
+        function CRate(r) {
+            $("#Rating").val(r);
+            for (var i = 1; i <= r; i++) {
+                $("#Rate" + i).attr('class', 'starGlow');
+
+            }
+
+            // unselect remaining
+            for (var i = r + 1; i <= 5; i++) {
+                $("#Rate" + i).attr('class', 'starFade');
+            }
+            this.CRateSelected();
+        }
+
+        function CRateOver(r) {
+            for (var i = 1; i <= r; i++) {
+                $("#Rate" + i).attr('class', 'starGlow');
+            }
+        }
+
+        function CRateOut(r) {
+            for (var i = 1; i <= r; i++) {
+                $("#Rate" + i).attr('class', 'starFade');
+            }
+        }
+
+        function CRateSelected() {
+            var setRating = $("#Rating").val();
+            for (var i = 1; i <= setRating; i++) {
+                $("#Rate" + i).attr('class', 'starGlow');
+            }
+
+        }
+
+        //var form = document.getElementById('review-form');
+        //form.addEventListener('submit', function (event) {
+        //    event.preventDefault();
+        //    SubmitComment();
+        //});
+
+
+        function SubmitComment() {
+            if ($("#Rating").val() == "0") {
+                //alert("Please give this tutor a star rating.");
+                sweetAlert("A star rating is required", "Please click on the stars to give one", "error");
+                //return false;
+            }
+            else {
+                var hiddenInput = document.createElement('input');
+                hiddenInput.setAttribute('type', 'hidden');
+                hiddenInput.setAttribute('name', 'Stars');
+                hiddenInput.setAttribute('value', $("#Rating").val());
+                return hiddenInput;
+                //form.append(hiddenInput);
+                //this.form.submit();
+                //return true;
+            }
+        }
+
+
+
+    </script>
+
+}

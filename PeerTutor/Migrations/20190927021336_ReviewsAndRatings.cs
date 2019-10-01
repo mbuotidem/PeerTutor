@@ -60,7 +60,7 @@ namespace PeerTutor.Migrations
                         column: x => x.ReviewerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(

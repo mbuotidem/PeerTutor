@@ -1,100 +1,15 @@
-﻿@model ReviewAndRatingViewModel
+﻿@model Review
 @{
     ViewData["Title"] = "Create Review";
 }
 
-<h1>Create Review</h1>
 
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
+<!-- Modal placeholder -->
+<div id="modal-placeholder"></div>
 
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Rate"></label>
-            </div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#add-review" data-url="@Url.Action("Create")">
+    Add review
+</button>
+<br />
 
-            <img src="~/images/star-off.png" alt="Star Rating" align="middle" id="1" class="rating" userId="@ViewBag.UserId" />
-            <img src="~/images/star-off.png" alt="Star Rating" align="middle" id="2" class="rating" userId="@ViewBag.UserId" />
-            <img src="~/images/star-off.png" alt="Star Rating" align="middle" id="3" class="rating" userId="@ViewBag.UserId" />
-            <img src="~/images/star-off.png" alt="Star Rating" align="middle" id="4" class="rating" userId="@ViewBag.UserId" />
-            <img src="~/images/star-off.png" alt="Star Rating" align="middle" id="5" class="rating" userId="@ViewBag.UserId" />
-
-            <div class="form-group row">
-                <input type="hidden" name="ReviewerId" class="form-control" value="@ViewBag.UserId" />
-            </div>
-
-            <div class="form-group row">
-                <input type="hidden" name="RevieweeId" class="form-control" value="@ViewBag.UserId" />
-            </div>
-
-
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ReviewContent"></label>
-                <textarea asp-for="ReviewContent" class="form-control" rows="5"></textarea>
-                <span asp-validation-for="ReviewContent" class="text-danger"></span>
-            </div>
-
-
-
-            <button type="submit" class="btn btn-primary">Create Review</button>
-        </form>
-    </div>
-</div>
-
-
-@section Scripts {
-
-    <script type="text/javascript">
-
-
-
-
-        $(function () {
-
-
-            $("img.rating").mouseover(function () {
-                giveRating($(this), "star-on.png");
-                $(this).css("cursor", "pointer");
-            });
-
-            $("img.rating").mouseout(function () {
-                giveRating($(this), "star-off.png");
-                refilRating($(this));
-            });
-
-            //$("img.rating").dblclick(function (e) {
-                //$("img.rating").bind("mouseout mouseover click");
-            //});
-
-            //$("img.rating").click(function (e) {
-            $("img.rating").off("click").on("click", function (e) {
-                $("img.rating").unbind("mouseout mouseover click");
-                $(this).css('color', 'red');
-                // alert(e.currentTarget + ' was clicked!');
-                // call ajax methods to update database
-                var url = "/Reviews/PostRating?rating=" + parseInt($(this).attr("id")) + "&userId=" + $(this).attr("userId");
-                $.post(url, null, function (data) {
-                    $(e.currentTarget).closest('tr').find('div.result').text(data).css('color', 'red') // $("#result").text(data);
-                });
-            });
-
-            
-        });
-
-        function giveRating(img, image) {
-            img.attr("src", "/Images/" + image)
-                .prevAll("img.rating").attr("src", "/Images/" + image);
-        }
-        function refilRating(img1) {
-            var rt = $(img1).closest('tr').find("span.avr").text();
-            var img = $(img1).closest('tr').find("img[id='" + parseInt(rt) + "']");
-            img.attr("src", "/images/star-on.png").prevAll("img.rating").attr("src", "/images/star-on.png");
-        }
-
-
-    </script>
-
-}

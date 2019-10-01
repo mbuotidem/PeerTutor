@@ -70,6 +70,6 @@ namespace PeerTutor.Models
 
         public DbSet<Review> Reviews { get; set; }
 
-        public DbSet<StarRating> Ratings { get; set; }
+       
     }
 }

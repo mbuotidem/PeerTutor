@@ -79,7 +79,7 @@ namespace PeerTutor.Migrations
                         column: x => x.BookerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Session_Courses_CourseId",
                         column: x => x.CourseId,

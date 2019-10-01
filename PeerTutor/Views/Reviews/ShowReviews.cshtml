@@ -1,0 +1,59 @@
+﻿@model IEnumerable<PeerTutor.Models.Review>
+@{
+    ViewData["Title"] = "Reviews";
+
+}
+
+
+
+    <div class="row modal fade" id="add-review" tabindex="-1" role="dialog">
+        
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewReviewLabel">View reviews - @Model.First().Reviewed.FirstName</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @if (!Model.Any())
+                    {
+                        <div class="alert alert-info alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"></span></button>
+                            This tutor has not yet received a review. Want to be the their first student?
+                        </div>
+
+                    }
+                    <div>
+                        @foreach (var review in Model)
+                        {
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <i>@review.Reviewer.FirstName</i>
+                                    <i>@review.ReviewDate</i>
+                                    <br />
+                                    @for (var i = 1; i <= review.Stars; i++)
+                                    {
+                                        <span class="starGlow"></span>
+                                    }
+                                    @for (var i = (review.Stars + 1); i <= 5; i++)
+                                    {
+                                        <span class="starFadeN"> </span>
+                                    }
+                                </div>
+                                <div class="col-md-9">
+                                    @review.ReviewContent
+                                    <hr />
+                                    <br />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

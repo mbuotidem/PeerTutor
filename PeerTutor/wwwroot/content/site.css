@@ -4,6 +4,18 @@
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
+.modal-dialog {
+    overflow-y: initial !important
+}
+
+.modal-body {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+.vspace1em {
+    
+    height: 5em;
+}
 .starFade {
     background-image: url('/images/StarFade.gif');
     min-width: 30px;
@@ -214,6 +226,8 @@ a[data-toggle="collapse"] {
 }
 
 ul ul a {
+    
+    padding-left: 20px !important;
     
 }
 

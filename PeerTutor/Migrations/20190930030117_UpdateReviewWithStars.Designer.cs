@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PeerTutor.Models;
 
 namespace PeerTutor.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190930030117_UpdateReviewWithStars")]
+    partial class UpdateReviewWithStars
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -298,6 +300,24 @@ namespace PeerTutor.Migrations
                     b.ToTable("Session");
                 });
 
+            modelBuilder.Entity("PeerTutor.Models.StarRating", b =>
+                {
+                    b.Property<int>("RateId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Stars");
+
+                    b.Property<string>("UserId")
+                        .IsRequired();
+
+                    b.HasKey("RateId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Ratings");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -384,6 +404,14 @@ namespace PeerTutor.Migrations
                     b.HasOne("PeerTutor.Models.Course", "Course")
                         .WithMany("Sessions")
                         .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PeerTutor.Models.StarRating", b =>
+                {
+                    b.HasOne("PeerTutor.Models.ApplicationUser", "User")
+                        .WithMany("Ratings")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

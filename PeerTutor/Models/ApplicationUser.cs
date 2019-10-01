@@ -15,7 +15,7 @@ namespace PeerTutor.Models
     {
         public ApplicationUser()
         {
-            Ratings = new HashSet<StarRating>();
+            
         }
         public enum MajorType
         {
@@ -52,25 +52,26 @@ namespace PeerTutor.Models
             //    return 0;
             //    }
             //get { return (Ratings.Count > 0 ? Ratings.Count : 0); }
-            get { return Ratings.Count; }
+            //get { return Ratings.Count; }
+            get { return ReviewsFor.Count; }
         }
 
         public int RateTotal
         {
             get
             {
-            //    if (Ratings != null)
-            //    {
-            //        return Ratings.Sum(m => m.Stars);
-            //    }
+                //    if (Ratings != null)
+                //    {
+                //        return Ratings.Sum(m => m.Stars);
+                //    }
 
-            //    return 0;
+                //    return 0;
                 //return (Ratings.Sum(m => m.Stars) > 0 ? Ratings.Sum(m => m.Stars) : 0);
-                return (Ratings.Sum(m => m.Stars));
+                //return (Ratings.Sum(m => m.Stars));
+                return (ReviewsFor.Sum(m => m.Stars));
             }
         }
 
-        public virtual ICollection<StarRating> Ratings { get; set; }
 
         public virtual ICollection<Review> ReviewsFor { get; set; }
 

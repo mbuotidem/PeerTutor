@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<PeerTutor.Models.Session>
-
+@using  System.Security.Claims
 @{
     ViewData["Title"] = "My Sessions";
 }
@@ -7,7 +7,7 @@
 <h1>My Sessions</h1>
 
 <p>
-    <a asp-controller="Home" asp-action="Menu" >Book New</a>
+    <a asp-controller="Home" asp-action="Menu">Book New</a>
 </p>
 <table class="table">
     <thead>
@@ -24,11 +24,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.EndTime)
             </th>
+
             <th>
-                @Html.DisplayNameFor(model => model.Booker)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Booked)
+                Tutor
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Course)
@@ -36,43 +34,214 @@
             <th>
                 @Html.DisplayNameFor(model => model.Location)
             </th>
-            <th></th>
+            <th>
+                Edit
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Topic)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Booker.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Booked.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Course.CourseTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                <a asp-action="Reviews" asp-route-id="@item.Id">Edit</a> |
-                @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Topic)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Booked.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Course.MajorShortCode) @Html.DisplayFor(modelItem => item.Course.CourseNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger mb-1">Cancel</a>
+
+                    @{if (item.BookedId == User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString())
+                        {
+                            <button type="button" class="btn btn-primary mb-1" data-toggle="ajax-modal" data-target="#add-review" data-url="@Url.Action("Create", "Reviews", new { RevieweeId = item.BookerId })">
+                                Review
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-primary mb-1" data-toggle="ajax-modal" data-target="#add-review" data-url="@Url.Action("Create", "Reviews", new { RevieweeId = item.BookedId })">
+                                Review
+                            </button>
+                        }
+                    }
+
+                   
+                    @*<a asp-action="Review" asp-route-id="@item.Id" class="btn btn-success mb-1">Review</a>
+        <a asp-action="Reviews" asp-route-id="@item.Id">Cancel</a> |
+                    @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<!-- Modal placeholder -->
+<div id="modal-placeholder"></div>
+
+@section Scripts{
+
+    <script>
+
+
+        $('#reviews-table > tbody  > tr').each(function () {
+
+            //var av = $(this).find("span.avr").text();
+            var av = $(this).find("span.avr").text();
+
+            if (av != "" || av != null) {
+                // alert(av);
+                // fillRating(parseInt(av));
+                var img = $(this).find("img[id='" + parseInt(av) + "']");
+                img.attr("src", "/images/star-on.png").prevAll("img.rating").attr("src", "/images/star-on.png");
+            }
+
+        });
+    </script>
+
+    <script>
+        $(function () {
+            var placeholderElement = $('#modal-placeholder');
+            $('button[data-toggle="ajax-modal"]').click(function (event) {
+                var url = $(this).data('url');
+                $.get(url).done(function (data) {
+                    placeholderElement.html(data);
+                    placeholderElement.find('.modal').modal('show');
+                });
+            });
+
+            placeholderElement.on('click', '[data-save="modal"]', function (event) {
+                event.preventDefault();
+                //hiddenInput = SubmitComment();
+                if ($("#Rating").val() == "0") {
+                    //alert("Please give this tutor a star rating.");
+                    sweetAlert("A star rating is required", "Please click on the stars to give one", "error");
+                    //return false;
+                }
+                else {
+                    var hiddenInput = document.createElement('input');
+                    hiddenInput.setAttribute('type', 'hidden');
+                    hiddenInput.setAttribute('name', 'Stars');
+                    hiddenInput.setAttribute('value', $("#Rating").val());
+                    //return hiddenInput;
+
+                    var form = $(this).parents('.modal').find('form');
+                    form.append(hiddenInput);
+                    var actionUrl = form.attr('action');
+                    var dataToSend = form.serialize();
+
+                    $.post(actionUrl, dataToSend).done(function (data) {
+                        var newBody = $('.modal-body', data);
+                        //var isValid = $('[name="IsValid"]').val();
+                        //var isValid = newBody.find('[name="IsValid"]').val() == 'True';
+                        var isValid = newBody.find('[name="IsValid"]').val();
+                        if (isValid == undefined) {
+                            //placeholderElement.find('.modal').modal('hide');
+                            placeholderElement.find('.modal').modal('hide');
+                            window.location.href = "/Reviews"
+
+
+                        }
+                        placeholderElement.find('.modal-body').replaceWith(newBody);
+
+                        //var isValid = newBody.find('[name="IsValid"]').val() == 'True';
+                        //if (isValid) {
+                        //    //placeholderElement.find('.modal').modal('hide');
+                        //    placeholderElement.modal('hide');
+
+
+                        //}
+                    });
+                }
+            });
+        });
+
+
+    </script>
+
+    <script src="~/lib/sweetalert/sweetalert.js"></script>
+
+    <script>
+
+        function CRate(r) {
+            $("#Rating").val(r);
+            for (var i = 1; i <= r; i++) {
+                $("#Rate" + i).attr('class', 'starGlow');
+
+            }
+
+            // unselect remaining
+            for (var i = r + 1; i <= 5; i++) {
+                $("#Rate" + i).attr('class', 'starFade');
+            }
+            this.CRateSelected();
+        }
+
+        function CRateOver(r) {
+            for (var i = 1; i <= r; i++) {
+                $("#Rate" + i).attr('class', 'starGlow');
+            }
+        }
+
+        function CRateOut(r) {
+            for (var i = 1; i <= r; i++) {
+                $("#Rate" + i).attr('class', 'starFade');
+            }
+        }
+
+        function CRateSelected() {
+            var setRating = $("#Rating").val();
+            for (var i = 1; i <= setRating; i++) {
+                $("#Rate" + i).attr('class', 'starGlow');
+            }
+
+        }
+
+        //var form = document.getElementById('review-form');
+        //form.addEventListener('submit', function (event) {
+        //    event.preventDefault();
+        //    SubmitComment();
+        //});
+
+
+        function SubmitComment() {
+            if ($("#Rating").val() == "0") {
+                //alert("Please give this tutor a star rating.");
+                sweetAlert("A star rating is required", "Please click on the stars to give one", "error");
+                //return false;
+            }
+            else {
+                var hiddenInput = document.createElement('input');
+                hiddenInput.setAttribute('type', 'hidden');
+                hiddenInput.setAttribute('name', 'Stars');
+                hiddenInput.setAttribute('value', $("#Rating").val());
+                return hiddenInput;
+                //form.append(hiddenInput);
+                //this.form.submit();
+                //return true;
+            }
+        }
+
+
+
+    </script>
+
+}

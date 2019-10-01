@@ -7,7 +7,8 @@
     <link href="~/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="~/lib/datepicker/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
     <link href="~/content/site.css" rel="stylesheet" />
-    
+
+    <link href="~/lib/sweetalert/sweetalert.css" rel="stylesheet" />
 
 
     <title>@ViewBag.Title</title>
@@ -30,7 +31,7 @@
 
                     <li>
                         <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">My Profile</a>
-                        <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <ul class="collapse list-unstyled small" id="homeSubmenu">
                             <li>
                                 <a asp-controller="CourseTutors" asp-action="Create">Add Expertise</a>
                             </li>
@@ -45,21 +46,19 @@
                     </li>
                     <li>
                         <a href="#sessions" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">My Sessions</a>
-                        <ul class="collapse list-unstyled" id="sessions">
+                        <ul class="collapse list-unstyled small" id="sessions">
                             <li>
-                                <a asp-controller="Sessions" asp-action="Index">View Sessions</a>
+                                <a asp-controller="Sessions" asp-action="Index">View or Cancel a Session</a>
                             </li>
                             <li>
-                                <a asp-controller="Sessions" asp-action="Index">Cancel a Session</a>
+                                <a asp-controller="Reviews" asp-action="Create">Leave a Review</a>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a asp-controller="Home" asp-action="Menu">Book a Session</a>
                     </li>
-                    <li>
-                        <a asp-controller="Reviews" asp-action="Create">Leave a Review</a>
-                    </li>
+                    
                 </ul>
 
             </nav>
@@ -85,7 +84,7 @@
                                     <a asp-controller="Home" asp-action="Privacy" class="nav-link">Privacy</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">FAQ</a>
+                                    <a asp-controller="Home" asp-action="Faq" class="nav-link">FAQ</a>
                                 </li>
 
                                 <partial name="_LoginPartial" />

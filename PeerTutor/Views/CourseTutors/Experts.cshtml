@@ -11,101 +11,107 @@
 
 @if (!Model.Any())
 {
-<div class="alert alert-info alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>😞</strong> There are currently no experts available. Please check back soon!
-</div>
- 
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>😞</strong> There are currently no experts available. Please check back soon!
+    </div>
+
 }
 
 
-    
-        <div class="row" id="experts">
-            @foreach (var expert in Model)
-            {
-                <div class="col-auto mb-3">
-                    <div class="card h-100" style="width: 18rem;">
 
-                        <img class="card-img-top" src=~/images/115.jpg />
-                        <div class="card-body">
-                            <div class="card-text text-center">
+<div class="row" id="experts">
+    @foreach (var expert in Model)
+    {
+        <div class="col-auto mb-3">
+            <div class="card h-100" style="width: 18rem;">
 
-                                <div>
-                                    <h3>@expert.User.FirstName</h3>
-                                    <img src="~/images/star-off.png" alt="Star Rating" align="middle" id="1" class="rating" userId="@ViewBag.UserId" />
-                                    <img src="~/images/star-off.png" alt="Star Rating" align="middle" id="2" class="rating" userId="@ViewBag.UserId" />
-                                    <img src="~/images/star-off.png" alt="Star Rating" align="middle" id="3" class="rating" userId="@ViewBag.UserId" />
-                                    <img src="~/images/star-off.png" alt="Star Rating" align="middle" id="4" class="rating" userId="@ViewBag.UserId" />
-                                    <img src="~/images/star-off.png" alt="Star Rating" align="middle" id="5" class="rating" userId="@ViewBag.UserId" />
-                                    (@expert.User.RateCount) @{if (expert.User.RateCount > 0)
-                                        {
-                                            decimal a = @expert.User.RateTotal / @expert.User.RateCount; <span class="avr"> @a</span> } }<br />
-                                </div>
+                <img class="card-img-top" src=~/images/115.jpg />
+                <div class="card-body">
+                    <div class="card-text text-center">
+                        <!-- Button trigger modal -->
 
-
-                                <h3>Grade: @expert.Grade</h3>
-
-                                @Html.ActionLink("Book me!", "Create", "Sessions", new { bookedWith = expert.UserId, courseId = expert.CourseId }, new { @class = "btn btn-info" })
-                                
-                            </div>
+                        <h3>@expert.User.FirstName</h3>
+                        <div>
+                            <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="1" class="rating" />
+                            <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="2" class="rating" />
+                            <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="3" class="rating" />
+                            <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="4" class="rating" />
+                            <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="5" class="rating" />
+                            <span style="vertical-align: bottom;">(@expert.User.RateCount)</span> @{if (expert.User.RateCount > 0)
+                                {
+                                    decimal a = @expert.User.RateTotal / @expert.User.RateCount; <span class="avr mb-1" style="display:none;"> @a</span> } }<br />
                         </div>
+
+
+
+                        <h3>Grade: @expert.Grade</h3>
+
+                        @Html.ActionLink("Book me!", "Create", "Sessions", new { bookedWith = expert.UserId, courseId = expert.CourseId }, new { @class = "btn btn-info mb-1" })
+
+                        <button type="button" class="btn btn-primary mb-1" data-toggle="ajax-modal" data-target="#add-review" data-url="@Url.Action("ShowReviews", "Reviews", new { userId = expert.UserId})">
+                            Reviews
+                        </button>
+
                     </div>
                 </div>
-
-
-            }
+            </div>
         </div>
-    
 
 
-    @section Scripts{
-
-        <script>
-            //$.fn.stars = function () {
-            //    return $(this).each(function() {
-            //        const rating = $(this).data("rating");
-            //        const numStars = $(this).data("numStars");
-            //        const fullStar = '<i class="fa fa-star"></i>'.repeat(Math.floor(rating));
-            //        const halfStar = (rating%1!== 0) ? '<i class="fa fa-star-half-alt"></i>': '';
-            //        const noStar = '<i class="fa fa-star"></i>'.repeat(Math.floor(numStars-rating));
-            //        $(this).html(`${fullStar}${halfStar}${noStar}`);
-            //   });
-            //}
-
-            $.fn.stars = function () {
-                return $(this).each(function () {
-                    var rating = $(this).data("rating");
-                    var fullStar = new Array(Math.floor(rating + 1)).join('<i class="fa fa-star"></i>');
-                    var halfStar = ((rating % 1) !== 0) ? '<i class="fa fa-star-half-alt"></i>' : '';
-                    var noStar = new Array(Math.floor($(this).data("numStars") + 1 - rating)).join('<i class="fa fa-star"></i>');
-                    $(this).html(fullStar + halfStar + noStar);
-                });
-            }
-            $(function () {
-                $('.stars').stars();
-            });
-
-            function refilRating(img1) {
-                var rt = $(img1).closest('tr').find("span.avr").text();
-                var img = $(img1).closest('tr').find("img[id='" + parseInt(rt) + "']");
-                img.attr("src", "/images/star-on.png").prevAll("img.rating").attr("src", "/images/star-on.png");
-            }
-
-
-            $('#experts > div > div > div > div').each(function () {
-
-                var av = $(this).find("span.avr").text();
-
-                if (av != "" || av != null) {
-                    // alert(av);
-                    // fillRating(parseInt(av));
-                    var img = $(this).find("img[id='" + parseInt(av) + "']");
-                    img.attr("src", "/images/star-on.png").prevAll("img.rating").attr("src", "/images/star-on.png");
-                }
-
-            });
-
-
-
-        </script>
     }
+</div>
+
+<!-- Button trigger modal -->
+@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-contact" id="reviews">
+    Add contact
+</button>*@
+<!-- Modal placeholder -->
+<div id="modal-placeholder"></div>
+
+
+@section Scripts{
+
+    <script>
+        $('#experts > div > div > div > div').each(function () {
+
+            var av = $(this).find("span.avr").text();
+
+            if (av != "" || av != null) {
+                // alert(av);
+                // fillRating(parseInt(av));
+                var img = $(this).find("img[id='" + parseInt(av) + "']");
+                img.attr("src", "/images/starGlow.gif").prevAll("img.rating").attr("src", "/images/starGlow.gif");
+            }
+
+        });
+
+
+
+    </script>
+
+    <script>
+        $(function () {
+    $('button[data-toggle="ajax-modal"]').click(function (event) {
+        var url = $(this).data('url');
+        $.get(url).done(function (data) {
+            $('#modal-placeholder').html(data);
+            $('#modal-placeholder > .modal').modal('show').css({ "max-height": screen.height * .8, "overflow-y": "auto" });
+        });
+    });
+});
+        //$(function () {
+        //    $("img.rating").mouseover(function () {
+        //        var placeholderElement = $('#modal-placeholder');
+
+        //        $('button[data-toggle="ajax-modal"]').click(function (event) {
+        //            var url = $(this).data('url');
+        //            $.get(url).done(function (data) {
+        //                placeholderElement.html(data);
+        //                placeholderElement.find('.modal').modal('show');
+        //            });
+        //        });
+        //    })
+        //});
+    </script>
+}

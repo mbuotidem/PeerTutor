@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using PeerTutor.Models;
 using PeerTutor.ViewModels;
 using System.Linq;
+using PeerTutor.Extensions;
 
 namespace PeerTutor.Controllers
 {
@@ -48,16 +49,35 @@ namespace PeerTutor.Controllers
         }
 
         // GET: Review/Create
-        public ActionResult Create()
+        public IActionResult Create(string RevieweeId)
         {
-            ViewBag.UserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString();
-            return View();
+            bool isAjaxCall = Request.Headers["x-requested-with"] == "XMLHttpRequest";
+
+            //if (RevieweeId == this.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString())
+            //{
+            //    return RedirectToAction("Index", "Sessions").WithWarning("Awesome!", "You cannot leave a review for yourself.");
+            //}
+
+            if (isAjaxCall)
+            {
+                //TODO: Improve logic here to only allow one review for each session. Will need to tie reviews to session.
+
+                var reviewer = this.User.FindFirst(ClaimTypes.NameIdentifier).Value.ToString();
+                ViewBag.ReviewerId = reviewer;
+
+                ViewBag.RevieweeId = RevieweeId;
+                var model = new Review { ReviewerId = reviewer, RevieweeId = RevieweeId };
+
+                return PartialView("_AddReview", model);
+            }
+            
+            return RedirectToAction("Index", "Sessions").WithWarning("Awesome!", "Click review on a past session to leave a review.");
         }
 
         // POST: Review/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task <IActionResult> Create([Bind("ReviewContent, RevieweeId, ReviewerId")] ReviewAndRatingViewModel userReview)
+        public async Task <IActionResult> Create([Bind("ReviewContent, RevieweeId, ReviewerId, Stars")] Review userReview)
         {
             // TODO: Add insert logic here
 
@@ -66,7 +86,7 @@ namespace PeerTutor.Controllers
 
                 try
                 {
-                    var review = new Review { ReviewContent = userReview.ReviewContent, ReviewerId = userReview.ReviewerId , RevieweeId = userReview.RevieweeId, ReviewDate = userReview.ReviewDate };
+                    var review = new Review { ReviewContent = userReview.ReviewContent, ReviewerId = userReview.ReviewerId , RevieweeId = userReview.RevieweeId, ReviewDate = userReview.ReviewDate, Stars = userReview.Stars };
 
                     _context.Add(review);
                     await _context.SaveChangesAsync();
@@ -79,8 +99,8 @@ namespace PeerTutor.Controllers
                 }
             }
 
-            ModelState.AddModelError("", "Error");
-            return View(userReview);
+            //ModelState.AddModelError("", "Error");
+            return PartialView("_AddReview", userReview);
         }
 
         // GET: Review/Edit/5
@@ -129,19 +149,14 @@ namespace PeerTutor.Controllers
             }
         }
 
-        [HttpPost]
-        public JsonResult PostRating(int rating, string userId)
+    
+        public async Task<IActionResult> ShowReviews(string userId)
         {
-            //save data into the database
+            var reviews = _context.Reviews.Include(s => s.Reviewed).Include(c => c.Reviewer).Where(c => c.RevieweeId == userId);
 
-            StarRating rt = new StarRating { Stars = rating, UserId = userId };
+            return PartialView("ShowReviews", await reviews.ToListAsync());
             
-            
-            //save into the database 
-            _context.Ratings.Add(rt);
-            _context.SaveChanges();
 
-            return Json("You rated this " + rating.ToString() + " star(s)");
         }
     }
 }

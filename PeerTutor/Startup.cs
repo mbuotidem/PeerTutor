@@ -58,8 +58,8 @@ namespace PeerTutor
             //Add AppplicationDbContext to DI
 
             services.AddDbContext<AppDbContext>(options =>
-            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.UseNetTopologySuite()));
-            options.UseInMemoryDatabase("PeerTutor"));
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.UseNetTopologySuite()));
+            //options.UseInMemoryDatabase("PeerTutor"));
 
             // Automatically perform database migration
             //services.BuildServiceProvider().GetService<AppDbContext>().Database.Migrate();
@@ -115,8 +115,7 @@ namespace PeerTutor
 
 
             services.AddTransient<ICourseRepository, CourseRepository>();
-            services.AddTransient<CourseTutor>();
-
+            
             services.AddMvc(options =>
             {
                 AuthorizationPolicy policy = new AuthorizationPolicyBuilder()
@@ -129,7 +128,7 @@ namespace PeerTutor
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            //UpdateDatabase(app);
+            UpdateDatabase(app);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -20,45 +20,42 @@
 
 
 
-<div class="row" id="experts">
+<div class="card-deck" id="experts">
     @foreach (var expert in Model)
     {
-        <div class="col-auto mb-3">
-            <div class="card h-100" style="width: 18rem;">
+        @*<div class="col-auto mb-3">*@
+    <div class="card mt-4 col-md-4">
+        <img class="card-img-top" src=~/images/115.jpg />
+        <div class="card-body">
+            <div class="card-text text-center">
+                <!-- Button trigger modal -->
 
-                <img class="card-img-top" src=~/images/115.jpg />
-                <div class="card-body">
-                    <div class="card-text text-center">
-                        <!-- Button trigger modal -->
-
-                        <h3>@expert.User.FirstName</h3>
-                        <div>
-                            <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="1" class="rating" />
-                            <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="2" class="rating" />
-                            <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="3" class="rating" />
-                            <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="4" class="rating" />
-                            <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="5" class="rating" />
-                            <span style="vertical-align: bottom;">(@expert.User.RateCount)</span> @{if (expert.User.RateCount > 0)
-                                {
-                                    decimal a = @expert.User.RateTotal / @expert.User.RateCount; <span class="avr mb-1" style="display:none;"> @a</span> } }<br />
-                        </div>
-
-
-
-                        <h3>Grade: @expert.Grade</h3>
-
-                        @Html.ActionLink("Book me!", "Create", "Sessions", new { bookedWith = expert.UserId, courseId = expert.CourseId }, new { @class = "btn btn-info mb-1" })
-
-                        <button type="button" class="btn btn-primary mb-1" data-toggle="ajax-modal" data-target="#add-review" data-url="@Url.Action("ShowReviews", "Reviews", new { userId = expert.UserId})">
-                            Reviews
-                        </button>
-
-                    </div>
+                <h3>@expert.User.FirstName</h3>
+                <div>
+                    <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="1" class="rating" />
+                    <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="2" class="rating" />
+                    <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="3" class="rating" />
+                    <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="4" class="rating" />
+                    <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="5" class="rating" />
+                    <span style="vertical-align: bottom;">(@expert.User.RateCount)</span> @{if (expert.User.RateCount > 0)
+                        {
+                            decimal a = @expert.User.RateTotal / @expert.User.RateCount; <span class="avr mb-1" style="display:none;"> @a</span> } }<br />
                 </div>
+
+
+
+                <h3>Grade: @expert.Grade</h3>
+
+                @Html.ActionLink("Book me!", "Create", "Sessions", new { bookedWith = expert.UserId, courseId = expert.CourseId }, new { @class = "btn btn-info mb-1" })
+
+                <button type="button" class="btn btn-primary mb-1" data-toggle="ajax-modal" data-target="#add-review" data-url="@Url.Action("ShowReviews", "Reviews", new { userId = expert.UserId})">
+                    Reviews
+                </button>
+
             </div>
         </div>
 
-
+    </div>
     }
 </div>
 

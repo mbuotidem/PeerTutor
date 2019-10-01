@@ -78,7 +78,7 @@ namespace PeerTutor.Controllers
                 {
                     await _context.SaveChangesAsync();
                 }
-                catch (ArgumentException ex)
+                catch (Exception ex)
                 {
                     if (ex != null)
                     {

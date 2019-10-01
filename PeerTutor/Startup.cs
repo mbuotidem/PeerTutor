@@ -62,7 +62,7 @@ namespace PeerTutor
             //options.UseInMemoryDatabase("PeerTutor"));
 
             // Automatically perform database migration
-            //services.BuildServiceProvider().GetService<AppDbContext>().Database.Migrate();
+            services.BuildServiceProvider().GetService<AppDbContext>().Database.Migrate();
 
             // Add third-party authentication
 
@@ -128,7 +128,7 @@ namespace PeerTutor
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            UpdateDatabase(app);
+            //UpdateDatabase(app);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

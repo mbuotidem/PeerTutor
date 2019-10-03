@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -17,15 +20,21 @@ namespace PeerTutor.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly IHostingEnvironment hostingEnvironment;
+        private readonly AppDbContext _context;
+
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender, IHostingEnvironment e,
+            AppDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            hostingEnvironment = e;
+            _context = context;
         }
 
         public string Username { get; set; }
@@ -47,6 +56,8 @@ namespace PeerTutor.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -74,7 +85,7 @@ namespace PeerTutor.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(IFormFile files)
         {
             if (!ModelState.IsValid)
             {
@@ -108,6 +119,40 @@ namespace PeerTutor.Areas.Identity.Pages.Account.Manage
                     throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
                 }
             }
+            //Image being saved
+            string webRootPath = hostingEnvironment.WebRootPath;
+            var file = HttpContext.Request.Form.Files;
+
+            var appUser = await _userManager.GetUserAsync(User);
+
+            if (file.Count != 0)
+            {
+                var uploads = Path.Combine(webRootPath, @"images");
+                var extension = Path.GetExtension(file[0].FileName);
+
+                using (var filestream = new FileStream(Path.Combine(uploads, appUser.Id + extension), FileMode.Create))
+                {
+                    file[0].CopyTo(filestream);
+                }
+
+                //rename image uploaded using folder path, it and the pic extension
+                appUser.Photo = @"\" + @"images" + @"\" + appUser.Id + extension;
+
+            }
+            else
+            {
+                try
+                {
+                    var uploads = Path.Combine(webRootPath, @"images" + @"\" + "default_image.jpg");
+                    System.IO.File.Copy(uploads, webRootPath + @"\" + @"images" + @"\" + appUser.Id + ".jpg");
+                    appUser.Photo = @"\" + @"images" + @"\" + appUser.Id + ".jpg";
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+            await _context.SaveChangesAsync();
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

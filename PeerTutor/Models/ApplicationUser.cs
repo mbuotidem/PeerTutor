@@ -28,6 +28,8 @@ namespace PeerTutor.Models
 
         }
 
+        public string Photo { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

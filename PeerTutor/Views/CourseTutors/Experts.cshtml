@@ -35,7 +35,7 @@
             <div class="card-text text-center">
                 <!-- Button trigger modal -->
 
-                <h3>@expert.User.FirstName</h3>
+                <h3>@Html.ActionLink(@expert.User.FirstName, "Details", "Users", new { id = @expert.UserId }, new { @class = "btn-link" }) </h3>
                 <div>
                     <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="1" class="rating" />
                     <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="2" class="rating" />

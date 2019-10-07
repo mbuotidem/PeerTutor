@@ -1,0 +1,121 @@
+﻿@model UserViewModel
+
+@{
+    ViewData["Title"] = "Profile";
+    var imageThumbPath = "/images/default_image.jpg";
+
+}
+<div class="card profile" style="width: 18rem;">
+    <img class="card-img-top" src="@{if (string.IsNullOrEmpty(Model.Photo))
+            {@imageThumbPath }
+            else { @Url.Content(Model.Photo); }
+            }"  alt="User's Profile Picture">
+    <div class="card-body">
+        <h5 class="card-title">@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</h5>
+        <p>Class of @Html.DisplayFor(model => model.ClassYear)</p>
+
+        <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="1" class="rating" />
+        <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="2" class="rating" />
+        <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="3" class="rating" />
+        <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="4" class="rating" />
+        <img src="~/images/StarFade.gif" alt="Star Rating" align="middle" id="5" class="rating" />
+        <span style="vertical-align: bottom;">(@Model.RateCount)</span> @{if (Model.RateCount > 0)
+            {
+                decimal a = @Model.RateTotal / @Model.RateCount; <span class="avr mb-1" style="display:none;"> @a</span> } }<br />
+
+    </div>
+</div>
+
+<br />
+<ul class="nav nav-tabs nav-fill responsive" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="reviewsfor-tab" data-toggle="tab" href="#reviewsfor" role="tab" aria-controls="home"
+           aria-selected="true">Reviews For</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="reviewsby-tab" data-toggle="tab" href="#reviewsby" role="tab" aria-controls="profile"
+           aria-selected="false">Reviews By</a>
+    </li>
+
+</ul>
+<div class="tab-content responsive" id="myTabContent">
+    <div class="tab-pane fade show active" id="reviewsfor" role="tabpanel" aria-labelledby="reviewsfor-tab">
+        <br />
+        @foreach (var review in Model.ReviewsFor)
+        {
+            <div class="row">
+                <div class="col-md-9">
+                    <i>@review.Reviewer.FirstName</i>
+                    <i>@review.ReviewDate</i>
+                    <br />
+                    @for (var i = 1; i <= review.Stars; i++)
+                    {
+                        <span class="starGlow"></span>
+                    }
+                    @for (var i = (review.Stars + 1); i <= 5; i++)
+                    {
+                        <span class="starFadeN"> </span>
+                    }
+                </div>
+                <div class="col-md-9">
+                    @review.ReviewContent
+                    <hr />
+                    <br />
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div class="tab-pane fade" id="reviewsby" role="tabpanel" aria-labelledby="reviewsby-tab">
+        <br />
+        @foreach (var review in Model.ReviewsBy)
+        {
+            <div class="row">
+                <div class="col-md-9">
+                    <i>@review.Reviewer.FirstName</i>
+                    <i>@review.ReviewDate</i> <em>For</em>
+                    <i>@review.Reviewed.FirstName</i>
+                    <br />
+                    @for (var i = 1; i <= review.Stars; i++)
+                    {
+                        <span class="starGlow"></span>
+                    }
+                    @for (var i = (review.Stars + 1); i <= 5; i++)
+                    {
+                        <span class="starFadeN"> </span>
+                    }
+                </div>
+                <div class="col-md-9">
+                    @review.ReviewContent
+                    <hr />
+                    <br />
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>
+
+
+@section Scripts{
+    <script>
+        $('.profile> div').each(function () {
+
+            var av = $(this).find("span.avr").text();
+
+            if (av != "" || av != null) {
+                // alert(av);
+                // fillRating(parseInt(av));
+                var img = $(this).find("img[id='" + parseInt(av) + "']");
+                img.attr("src", "/images/starGlow.gif").prevAll("img.rating").attr("src", "/images/starGlow.gif");
+            }
+
+        });
+
+
+
+    </script>
+
+}

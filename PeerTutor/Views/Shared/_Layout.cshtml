@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+
+@{
+    var userId = Context.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+}
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -30,8 +36,11 @@
                 <ul class="list-unstyled components">
 
                     <li>
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">My Tutoring Settings</a>
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">My Tutoring Profile</a>
                         <ul class="collapse list-unstyled small" id="homeSubmenu">
+                            <li>
+                                <a asp-controller="Users" asp-action="Details" asp-route-id="@userId">My Profile</a>
+                            </li>
                             <li>
                                 <a asp-controller="CourseTutors" asp-action="Create">Add Expertise</a>
                             </li>
@@ -41,7 +50,7 @@
                             <li>
                                 <a href="#">Add Availability</a>
                             </li>
-
+                            
                         </ul>
                     </li>
                     <li>

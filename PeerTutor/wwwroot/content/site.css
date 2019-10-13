@@ -4,6 +4,12 @@
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
+.profile-img {
+    width: 100% !important;
+    height: 300px !important;
+    object-fit:contain;
+    object-position: top;
+}
 
 .nav {
     z-index: 9999;
@@ -301,4 +307,5 @@ a.article:hover {
     #sidebarCollapse span {
         display: none;
     }
+
 }

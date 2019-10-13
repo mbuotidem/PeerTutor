@@ -27,10 +27,12 @@
     {
         @*<div class="col-auto mb-3">*@
     <div class="card">
+        <a href="@Url.Action("Details","Users", new { id = @expert.User.Id })">
         <img class="card-img-top" src="@{if (string.IsNullOrEmpty(expert.User.Photo))
             {@imageThumbPath }
             else { @expert.User.Photo; }
             }"/>
+            </a>
         <div class="card-body">
             <div class="card-text text-center">
                 <!-- Button trigger modal -->

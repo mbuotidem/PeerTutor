@@ -43,6 +43,7 @@ namespace PeerTutor.Controllers
 
             var model = new UserViewModel
             {
+                Id = user.Id,
                 UserName = user.UserName,
                 Photo = user.Photo,
                 FirstName = user.FirstName,
@@ -57,6 +58,30 @@ namespace PeerTutor.Controllers
 
             };
             return View(model);
+        }
+
+        [HttpGet]
+        public JsonResult GetEvents(string id)
+        {
+
+            var sessions = _context.Session.Include(c => c.Booked)
+                .Include(c => c.Booker)
+                .Where(c => c.BookedId == id || c.BookerId == id);
+
+            var events = new List<SessionViewModel>();
+            
+            foreach ( Session session in sessions)
+            {
+                events.Add(new SessionViewModel()
+                {
+                    Id = session.Id,
+                    Topic = session.Topic,
+                    Start = session.StartTime.ToString(),
+                    End = session.EndTime.ToString()
+                });
+            }
+
+            return Json(events.ToArray());
         }
     }
 }

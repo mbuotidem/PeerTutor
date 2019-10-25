@@ -62,11 +62,11 @@ namespace PeerTutor
             //Add AppplicationDbContext to DI
 
             services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.UseNetTopologySuite()));
-            //options.UseInMemoryDatabase("PeerTutor"));
+            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.UseNetTopologySuite()));
+            options.UseInMemoryDatabase("PeerTutor"));
 
             // Automatically perform database migration
-            services.BuildServiceProvider().GetService<AppDbContext>().Database.Migrate();
+            //services.BuildServiceProvider().GetService<AppDbContext>().Database.Migrate();
 
             // Add third-party authentication
 

@@ -98,6 +98,7 @@ namespace PeerTutor
             {
                 twitterOptions.ConsumerKey = Configuration["TwitterAppId"];
                 twitterOptions.ConsumerSecret = Configuration["TwitterSecret"];
+                twitterOptions.RetrieveUserDetails = true;
                 twitterOptions.Events.OnRemoteFailure = (context) =>
                 {
                     //context.Response.Redirect("/Identity/Account/Register");

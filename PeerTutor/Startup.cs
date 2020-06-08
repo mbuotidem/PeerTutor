@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NetTopologySuite;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -14,6 +13,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PeerTutor.Models;
 using Stripe;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authentication.AzureAD.UI;
+using Microsoft.AspNetCore.Authentication;
+
 
 namespace PeerTutor
 {
@@ -21,7 +24,7 @@ namespace PeerTutor
     {
         public IConfiguration Configuration { get; }
 
-        private IHostingEnvironment CurrentEnvironment { get; set; }
+        private IHostEnvironment CurrentEnvironment { get; set; }
 
         public Startup(IConfiguration configuration)
         {
@@ -60,13 +63,16 @@ namespace PeerTutor
 
 
             //Add AppplicationDbContext to DI
+            //services.AddDbContext<AppDbContext>(x => x.UseSqlServer("Data Source=LocalDatabase.db"));
 
             services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.UseNetTopologySuite()));
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.UseNetTopologySuite()));
+
             //options.UseInMemoryDatabase("PeerTutor"));
 
             // Automatically perform database migration
-            services.BuildServiceProvider().GetService<AppDbContext>().Database.Migrate();
+            //services.BuildServiceProvider().GetService<AppDbContext>().Database.Migrate();
 
             // Add third-party authentication
 
@@ -74,6 +80,7 @@ namespace PeerTutor
             {
 
             })
+            
             .AddGoogle(googleOptions =>
             {
                 googleOptions.ClientId = Configuration["GoogleAppId"];
@@ -126,11 +133,14 @@ namespace PeerTutor
                 .RequireAuthenticatedUser()
                 .Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
+                options.EnableEndpointRouting = false;
             }).AddXmlSerializerFormatters();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppDbContext dbContext)
         {
             //UpdateDatabase(app);
             if (env.IsDevelopment())
@@ -142,6 +152,8 @@ namespace PeerTutor
                 app.UseExceptionHandler("/Error");
                 
             }
+            // migrate any database changes on startup (includes initial db creation)
+            dbContext.Database.Migrate();
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
             app.UseStaticFiles();
 

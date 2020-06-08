@@ -109,7 +109,9 @@ namespace PeerTutor.Controllers
                     Amount = (long)chargeAmount,
                     Description = "Sample Charge",
                     Currency = "usd",
-                    CustomerId = customer.Id
+                    //CustomerId = customer.Id
+                    Customer = customer.Id
+
                 });
 
 
